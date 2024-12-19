@@ -43,14 +43,11 @@ public class LevelGenerator : MonoBehaviour
         }
     }
 
-    public Wall SpawnWall()
+    public BaseTile SpawnTileByPath(string path)
     {
-        var path = "Prefabs/Wall";
-        var prefab = Resources.Load<Wall>(path);
-
-        var wall = Instantiate(prefab, Vector3.zero, quaternion.identity, gridParent.transform);
-        wall.ConfigureSelf(0, 0);
-        //_walls.Add(wall);
-        return wall;
+        var prefab = Resources.Load<BaseTile>(path);
+        var tile = Instantiate(prefab, Vector3.zero, quaternion.identity, gridParent.transform);
+        tile.ConfigureSelf(0, 0);
+        return tile;
     }
 }

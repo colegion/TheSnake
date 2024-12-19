@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Snake : MonoBehaviour
+public class Snake : BaseTile
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject visuals;
 
-    // Update is called once per frame
-    void Update()
+    public void RotateSelf()
     {
-        
+        var oldRotation = visuals.transform.localRotation.eulerAngles;
+        visuals.transform.localRotation = Quaternion.Euler(new Vector3(oldRotation.x, oldRotation.y + 90f, oldRotation.z));
     }
 }

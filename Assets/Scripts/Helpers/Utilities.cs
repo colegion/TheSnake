@@ -7,9 +7,11 @@ namespace Helpers
     public class Utilities : MonoBehaviour
     {
         [SerializeField] private List<WallConfig> wallConfigs;
-        
+
         public const string LightTilePath = "Prefabs/GrassLight";
         public const string DarkTilePath = "Prefabs/GrassDark";
+        public const string WallPath = "Prefabs/Wall";
+        public const string SnakePath = "Prefabs/Snake";
 
         public const int BlockLayer = 0;
         public const int FreeLayer = 1;
@@ -25,7 +27,7 @@ namespace Helpers
         {
             return _wallConfigs.Find(c => c.type == type).wallMesh;
         }
-        
+
 
         public static bool IsEdgeCell(int yCoord) => yCoord == 0;
     }
@@ -54,5 +56,13 @@ namespace Helpers
     {
         Concrete,
         Portal,
+    }
+    
+    public enum Direction
+    {
+        Up = 0,
+        Right,
+        Down,
+        Left
     }
 }

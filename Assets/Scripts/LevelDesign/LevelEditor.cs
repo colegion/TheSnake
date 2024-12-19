@@ -17,7 +17,7 @@ namespace LevelDesign
         [HideInInspector] public WallType selectedType;
 
         [HideInInspector] public List<Wall> walls;
-        
+        [HideInInspector] public Snake snake;
         public void CreateGrid()
         {
             var size = new Size(width, height);
@@ -29,8 +29,16 @@ namespace LevelDesign
         {
             if (walls == null) walls = new List<Wall>();
             
-            var wall = levelGenerator.SpawnWall();
-            walls.Add(wall);
+            var wall = levelGenerator.SpawnTileByPath(Utilities.WallPath);
+            ((Wall)wall).SetWallType(WallType.Concrete);
+            walls.Add((Wall)wall);
+        }
+
+        public void AddSnake()
+        {
+            if (snake != null) return;
+
+            snake = (Snake)levelGenerator.SpawnTileByPath(Utilities.SnakePath);
         }
 
         public void RemoveWall(Wall wall)
