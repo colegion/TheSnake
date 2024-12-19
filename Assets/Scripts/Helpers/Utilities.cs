@@ -7,7 +7,8 @@ namespace Helpers
     public class Utilities : MonoBehaviour
     {
         [SerializeField] private List<WallConfig> wallConfigs;
-
+        private static List<WallConfig> _wallConfigs;
+        
         public const string LightTilePath = "Prefabs/GrassLight";
         public const string DarkTilePath = "Prefabs/GrassDark";
         public const string WallPath = "Prefabs/Wall";
@@ -15,8 +16,6 @@ namespace Helpers
 
         public const int BlockLayer = 0;
         public const int FreeLayer = 1;
-
-        private static List<WallConfig> _wallConfigs;
 
         private void Start()
         {

@@ -58,7 +58,7 @@ namespace LevelDesign
 
                 if (GUILayout.Button("Rotate Snake"))
                 {
-                    snake.RotateSelf();
+                    snake.UpdateDirection();
                 }
             }
         }

@@ -9,10 +9,21 @@ public class Snake : BaseTile
     [SerializeField] private GameObject visuals;
 
     private Direction _direction = Direction.Up;
-
-    public void RotateSelf()
+    
+    public void SetDirection(Direction direction)
+    {
+        _direction = direction;
+        SetRotation();
+    }
+    
+    public void UpdateDirection()
     {
         _direction = (Direction)(((int)_direction + 1) % Enum.GetValues(typeof(Direction)).Length);
+        SetRotation();
+    }
+
+    private void SetRotation()
+    {
         visuals.transform.localRotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
     }
     
