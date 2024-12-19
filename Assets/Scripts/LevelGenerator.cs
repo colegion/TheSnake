@@ -16,6 +16,12 @@ public class LevelGenerator : MonoBehaviour
         var width = size.width;
         var height = size.height;
 
+        if (width == 0 || height == 0)
+        {
+            Debug.LogWarning("Please enter values bigger than 0 for width and height");
+            return;
+        }
+
         var lightPrefab = Resources.Load<GameObject>(LightTilePath);
         var darkPrefab = Resources.Load<GameObject>(DarkTilePath);
         
