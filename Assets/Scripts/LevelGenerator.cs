@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Helpers;
 using Mono.Cecil;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
@@ -9,12 +10,11 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] private Transform gridParent;
 
     private Grid _grid;
-
-    private const string LightTilePath = "Prefabs/GrassLight";
-    private const string DarkTilePath = "Prefabs/GrassDark";
+    private List<Wall> _walls;
     
     public void GenerateGrid(Size size)
     {
+        _walls = new List<Wall>();
         _grid = new Grid();
         _grid.InitiateWorld(size);
         var width = size.width;
@@ -26,8 +26,8 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        var lightPrefab = Resources.Load<GridCell>(LightTilePath);
-        var darkPrefab = Resources.Load<GridCell>(DarkTilePath);
+        var lightPrefab = Resources.Load<GridCell>(Utilities.LightTilePath);
+        var darkPrefab = Resources.Load<GridCell>(Utilities.DarkTilePath);
         
         for (int x = 0; x < width; x++)
         {
@@ -41,5 +41,16 @@ public class LevelGenerator : MonoBehaviour
                 _grid.SetCell(cell);
             }
         }
+    }
+
+    public Wall SpawnWall()
+    {
+        var path = "Prefabs/Wall";
+        var prefab = Resources.Load<Wall>(path);
+
+        var wall = Instantiate(prefab, Vector3.zero, quaternion.identity, gridParent.transform);
+        wall.ConfigureSelf(0, 0);
+        //_walls.Add(wall);
+        return wall;
     }
 }
