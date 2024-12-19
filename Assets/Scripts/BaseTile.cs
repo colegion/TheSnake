@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Helpers;
 using UnityEngine;
 
 public class BaseTile : MonoBehaviour
@@ -39,5 +40,13 @@ public class BaseTile : MonoBehaviour
     {
         _y = y;
         SetTransform();
+    }
+
+    public virtual SaveData CreateTileData()
+    {
+        var data = new SaveData();
+        data.x = _x;
+        data.y = _y;
+        return data;
     }
 }

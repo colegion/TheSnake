@@ -10,14 +10,15 @@ namespace LevelDesign
     public class LevelEditor : MonoBehaviour
     {
         [SerializeField] private LevelGenerator levelGenerator;
+        private LevelSaver _levelSaver;
 
         [HideInInspector] public int width;
         [HideInInspector] public int height;
+        [HideInInspector] public int targetCount = 5;
         [HideInInspector] public bool gridGenerated;
-        [HideInInspector] public WallType selectedType;
-
         [HideInInspector] public List<Wall> walls;
         [HideInInspector] public Snake snake;
+        
         public void CreateGrid()
         {
             var size = new Size(width, height);
@@ -45,6 +46,27 @@ namespace LevelDesign
         {
             walls.Remove(wall);
             Destroy(wall.gameObject);
+        }
+
+        public void SaveLevel()
+        {
+            _levelSaver = new LevelSaver();
+            var nextIndex = _levelSaver.GetNextLevelIndex();
+            List<WallData> wallData = new List<WallData>();
+            LevelData data = new LevelData();
+
+            foreach (var wall in walls)
+            {
+                wallData.Add((WallData)wall.CreateTileData());
+            }
+            
+            data.width = width;
+            data.height = height;
+            data.wallData = wallData;
+            data.snakeData = (SnakeData)snake.CreateTileData();
+            data.target = targetCount;
+            
+            _levelSaver.SaveLevelWithIndex(data, nextIndex);
         }
         
     }

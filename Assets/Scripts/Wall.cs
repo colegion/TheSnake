@@ -23,4 +23,15 @@ public class Wall : BaseTile
     {
         return _wallType;
     }
+    
+    public override SaveData CreateTileData()
+    {
+        var data = new WallData
+        {
+            x = _x,
+            y = _y,
+            type = _wallType
+        };
+        return data;
+    }
 }

@@ -20,7 +20,8 @@ namespace LevelDesign
             ConfigureAddSnakeButton();
             ConfigureAddWallButton();
             DisplayWallConfigs();
-            
+            ConfigureTargetCountField();
+            ConfigureSaveAndPlayButton();
         }
         
         private void ConfigureGridSizeFields()
@@ -91,6 +92,19 @@ namespace LevelDesign
                 {
                     _levelEditor.RemoveWall(wall);
                 }
+            }
+        }
+
+        private void ConfigureTargetCountField()
+        {
+            _levelEditor.targetCount = EditorGUILayout.IntField("Target Count: ", _levelEditor.targetCount);
+        }
+
+        private void ConfigureSaveAndPlayButton()
+        {
+            if (GUILayout.Button("Save & Play"))
+            {
+                _levelEditor.SaveLevel();
             }
         }
 
