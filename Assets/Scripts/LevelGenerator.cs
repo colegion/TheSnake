@@ -8,11 +8,15 @@ public class LevelGenerator : MonoBehaviour
 {
     [SerializeField] private Transform gridParent;
 
+    private Grid _grid;
+
     private const string LightTilePath = "Prefabs/GrassLight";
     private const string DarkTilePath = "Prefabs/GrassDark";
     
     public void GenerateGrid(Size size)
     {
+        _grid = new Grid();
+        _grid.InitiateWorld(size);
         var width = size.width;
         var height = size.height;
 
@@ -22,18 +26,19 @@ public class LevelGenerator : MonoBehaviour
             return;
         }
 
-        var lightPrefab = Resources.Load<GameObject>(LightTilePath);
-        var darkPrefab = Resources.Load<GameObject>(DarkTilePath);
+        var lightPrefab = Resources.Load<GridCell>(LightTilePath);
+        var darkPrefab = Resources.Load<GridCell>(DarkTilePath);
         
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
             {
                 var isWhite = (x + y) % 2 == 0;
-                var tilePrefabPath = isWhite ? lightPrefab : darkPrefab;
-
-                var tile = Instantiate(tilePrefabPath, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
-                tile.name = $"{tile.name}{x}_{y}";
+                var cellPrefabPath = isWhite ? lightPrefab : darkPrefab;
+                
+                var cell = Instantiate(cellPrefabPath, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
+                cell.ConfigureSelf(x, y);
+                _grid.SetCell(cell);
             }
         }
     }
