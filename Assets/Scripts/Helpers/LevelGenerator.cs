@@ -10,7 +10,7 @@ namespace Helpers
 
         private Grid _grid;
 
-        public void GenerateLevelFromJSON(Grid grid, LevelData data)
+        public void GenerateLevelFromJson(Grid grid, LevelData data)
         {
             var size = new Size(data.width, data.height);
             _grid = grid;
@@ -18,12 +18,15 @@ namespace Helpers
 
             foreach (var wallData in data.wallData)
             {
-                var wall = SpawnTileByPath(Utilities.WallPath, wallData);
+                var wall = SpawnTileByPath(Utilities.WallPath);
+                ConfigureTile(wall, wallData);
+                wall.SetLayer((int)wallData.type);
                 wall.InjectController(grid);
                 ((Wall)wall).SetWallType(wallData.type);
             }
 
-            var snake = SpawnTileByPath(Utilities.SnakePath, data.snakeData);
+            var snake = SpawnTileByPath(Utilities.SnakePath);
+            ConfigureTile(snake, data.snakeData);
             snake.InjectController(grid);
             ((Snake)snake).SetDirection(data.snakeData.initialDirection);
         }
@@ -55,27 +58,24 @@ namespace Helpers
 
                     var cell = Instantiate(cellPrefab, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
                     cell.ConfigureSelf(x, y);
-
-                    // Set the cell in the grid after visual instantiation
                     _grid.SetCell(cell);
                 }
             }
         }
 
 
-        public BaseTile SpawnTileByPath(string path, SaveData data = null)
+        public BaseTile SpawnTileByPath(string path)
         {
             var prefab = Resources.Load<BaseTile>(path);
             var tile = Instantiate(prefab, Vector3.zero, quaternion.identity, gridParent.transform);
-            var x = data?.x ?? 0;
-            var y = data?.y ?? 0;
-            tile.ConfigureSelf(x, y);
             return tile;
         }
 
-        public Grid GetGrid()
+        private void ConfigureTile(BaseTile tile, SaveData data = null)
         {
-            return _grid;
+            var x = data?.x ?? 0;
+            var y = data?.y ?? 0;
+            tile.ConfigureSelf(x, y);
         }
     }
 }

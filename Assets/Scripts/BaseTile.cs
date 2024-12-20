@@ -18,9 +18,10 @@ public class BaseTile : MonoBehaviour
     public void InjectController(Grid grid)
     {
         _grid = grid;
+        _grid.PlaceTileToParentCell(this);
     }
     
-    public void ConfigureSelf(int x, int y)
+    public virtual void ConfigureSelf(int x, int y)
     {
         _x = x;
         _y = y;

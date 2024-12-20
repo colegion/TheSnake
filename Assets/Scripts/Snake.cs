@@ -10,6 +10,12 @@ public class Snake : BaseTile
 
     private Direction _direction = Direction.Up;
     
+    public override void ConfigureSelf(int x, int y)
+    {
+        base.ConfigureSelf(x, y);
+        _layer = 0;
+    }
+    
     public void SetDirection(Direction direction)
     {
         _direction = direction;

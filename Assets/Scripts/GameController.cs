@@ -28,7 +28,7 @@ public class GameController : MonoBehaviour
             if (levelData != null)
             {
                 _grid = new Grid(levelData.width, levelData.height);
-                levelGenerator.GenerateLevelFromJSON(_grid, levelData);
+                levelGenerator.GenerateLevelFromJson(_grid, levelData);
             }
             else
             {

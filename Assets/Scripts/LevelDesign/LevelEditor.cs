@@ -31,6 +31,7 @@ namespace LevelDesign
             if (walls == null) walls = new List<Wall>();
             
             var wall = levelGenerator.SpawnTileByPath(Utilities.WallPath);
+            wall.ConfigureSelf(0, 0);
             ((Wall)wall).SetWallType(WallType.Concrete);
             walls.Add((Wall)wall);
         }
@@ -40,6 +41,7 @@ namespace LevelDesign
             if (snake != null) return;
 
             snake = (Snake)levelGenerator.SpawnTileByPath(Utilities.SnakePath);
+            snake.ConfigureSelf(0, 0);
         }
 
         public void RemoveWall(Wall wall)
