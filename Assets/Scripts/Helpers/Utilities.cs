@@ -99,4 +99,16 @@ namespace Helpers
         Down,
         Left
     }
+
+    public class OnLevelStartEvent
+    {
+        public int levelIndex;
+        public int target;
+
+        public OnLevelStartEvent(int index, int count)
+        {
+            levelIndex = index;
+            target = count;
+        }
+    }
 }

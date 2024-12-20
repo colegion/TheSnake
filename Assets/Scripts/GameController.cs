@@ -10,7 +10,8 @@ public class GameController : MonoBehaviour
 
     private LevelSaver _levelSaver;
     private Grid _grid;
-
+    private int _target = 0;
+    
     private void Start()
     {
         _levelSaver = new LevelSaver();
@@ -27,8 +28,10 @@ public class GameController : MonoBehaviour
 
             if (levelData != null)
             {
+                _target = levelData.target;
                 _grid = new Grid(levelData.width, levelData.height);
                 levelGenerator.GenerateLevelFromJson(_grid, levelData);
+                EventBus.Instance.Trigger(new OnLevelStartEvent(index, _target));
             }
             else
             {
