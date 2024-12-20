@@ -111,4 +111,14 @@ namespace Helpers
             target = count;
         }
     }
+
+    public class OnDirectionUpdated
+    {
+        public Direction direction;
+
+        public OnDirectionUpdated(Direction direction)
+        {
+            this.direction = direction;
+        }
+    }
 }
