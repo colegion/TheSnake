@@ -13,7 +13,8 @@ namespace Helpers
         public void GenerateLevelFromJSON(Grid grid, LevelData data)
         {
             var size = new Size(data.width, data.height);
-            GenerateGrid(size);
+            _grid = grid;
+            GenerateGridVisual(size);
 
             foreach (var wallData in data.wallData)
             {
@@ -29,32 +30,38 @@ namespace Helpers
     
         public void GenerateGrid(Size size)
         {
-            _grid = new Grid(size.width, size.height);
-            var width = size.width;
-            var height = size.height;
-
-            if (width == 0 || height == 0)
+            if (size.width <= 0 || size.height <= 0)
             {
                 Debug.LogWarning("Please enter values bigger than 0 for width and height");
                 return;
             }
+            
+            _grid = new Grid(size.width, size.height);
+            
+            GenerateGridVisual(size);
+        }
 
+        private void GenerateGridVisual(Size size)
+        {
             var lightPrefab = Resources.Load<GridCell>(Utilities.LightTilePath);
             var darkPrefab = Resources.Load<GridCell>(Utilities.DarkTilePath);
-        
-            for (int x = 0; x < width; x++)
+
+            for (int x = 0; x < size.width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < size.height; y++)
                 {
                     var isWhite = (x + y) % 2 == 0;
-                    var cellPrefabPath = isWhite ? lightPrefab : darkPrefab;
-                
-                    var cell = Instantiate(cellPrefabPath, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
+                    var cellPrefab = isWhite ? lightPrefab : darkPrefab;
+
+                    var cell = Instantiate(cellPrefab, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
                     cell.ConfigureSelf(x, y);
+
+                    // Set the cell in the grid after visual instantiation
                     _grid.SetCell(cell);
                 }
             }
         }
+
 
         public BaseTile SpawnTileByPath(string path, SaveData data = null)
         {
