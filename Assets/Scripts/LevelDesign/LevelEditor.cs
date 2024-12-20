@@ -51,7 +51,7 @@ namespace LevelDesign
         public void SaveLevel()
         {
             _levelSaver = new LevelSaver();
-            var nextIndex = _levelSaver.GetNextLevelIndex();
+            var nextIndex = _levelSaver.GetMaxExistingLevelIndex();
             List<WallData> wallData = new List<WallData>();
             LevelData data = new LevelData();
 
@@ -66,7 +66,7 @@ namespace LevelDesign
             data.snakeData = (SnakeData)snake.CreateTileData();
             data.target = targetCount;
             
-            _levelSaver.SaveLevelWithIndex(data, nextIndex);
+            _levelSaver.SaveLevelWithIndex(data, nextIndex+1);
         }
         
     }

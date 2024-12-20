@@ -14,6 +14,8 @@ namespace Helpers
         public const string WallPath = "Prefabs/Wall";
         public const string SnakePath = "Prefabs/Snake";
 
+        public const string LevelIndexKey = "LevelIndex";
+
         public const int BlockLayer = 0;
         public const int FreeLayer = 1;
 

@@ -29,7 +29,7 @@ namespace Helpers
             Debug.Log($"Level saved: {filePath}");
         }
 
-        public int GetNextLevelIndex()
+        public int GetMaxExistingLevelIndex()
         {
             var levelFiles = Resources.LoadAll<TextAsset>($"Levels");
 
@@ -39,9 +39,9 @@ namespace Helpers
                 .Select(index => index.Value);
 
             var enumerable = indices.ToList();
-            int maxIndex = enumerable.Any() ? enumerable.Max() : -1;
+            int maxIndex = enumerable.Any() ? enumerable.Max() : 0;
 
-            return maxIndex + 1;
+            return maxIndex;
         }
 
         private int? ParseLevelIndex(string fileName)

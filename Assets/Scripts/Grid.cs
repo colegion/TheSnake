@@ -7,9 +7,9 @@ public class Grid
 {
    private GridCell[,] _world;
 
-   public void InitiateWorld(Size size)
+   public Grid(int width, int height)
    {
-      _world = new GridCell[size.width, size.height];
+      _world = new GridCell[width, height];
    }
 
    public void SetCell(GridCell cell)
@@ -21,6 +21,19 @@ public class Grid
       else
       {
          _world[cell.X, cell.Y] = cell;
+      }
+   }
+
+   public void PlaceTileToParentCell(BaseTile tile)
+   {
+      var cell = _world[tile.X, tile.Y];
+      if (cell == null)
+      {
+         Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+      }
+      else
+      {
+         cell.SetTile(tile);
       }
    }
 }

@@ -9,9 +9,8 @@ namespace Helpers
         [SerializeField] private Transform gridParent;
 
         private Grid _grid;
-        private List<Wall> _walls;
 
-        public void GenerateLevelFromJSON(LevelData data)
+        public void GenerateLevelFromJSON(Grid grid, LevelData data)
         {
             var size = new Size(data.width, data.height);
             GenerateGrid(size);
@@ -19,18 +18,18 @@ namespace Helpers
             foreach (var wallData in data.wallData)
             {
                 var wall = SpawnTileByPath(Utilities.WallPath, wallData);
+                wall.InjectController(grid);
                 ((Wall)wall).SetWallType(wallData.type);
             }
 
             var snake = SpawnTileByPath(Utilities.SnakePath, data.snakeData);
+            snake.InjectController(grid);
             ((Snake)snake).SetDirection(data.snakeData.initialDirection);
         }
     
         public void GenerateGrid(Size size)
         {
-            _walls = new List<Wall>();
-            _grid = new Grid();
-            _grid.InitiateWorld(size);
+            _grid = new Grid(size.width, size.height);
             var width = size.width;
             var height = size.height;
 
@@ -65,6 +64,11 @@ namespace Helpers
             var y = data?.y ?? 0;
             tile.ConfigureSelf(x, y);
             return tile;
+        }
+
+        public Grid GetGrid()
+        {
+            return _grid;
         }
     }
 }

@@ -13,6 +13,13 @@ public class BaseTile : MonoBehaviour
     public int Y => _y;
     public int Layer => _layer;
 
+    private Grid _grid;
+
+    public void InjectController(Grid grid)
+    {
+        _grid = grid;
+    }
+    
     public void ConfigureSelf(int x, int y)
     {
         _x = x;
