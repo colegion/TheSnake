@@ -36,4 +36,17 @@ public class Grid
          cell.SetTile(tile);
       }
    }
+
+   public void ClearTileOfParentCell(BaseTile tile)
+   {
+      var cell = _world[tile.X, tile.Y];
+      if (cell == null)
+      {
+         Debug.LogWarning($"Given tile has no valid coordinate X: {tile.X} Y: {tile.Y}");
+      }
+      else
+      {
+         cell.SetTileNull(tile.Layer);
+      }
+   }
 }
