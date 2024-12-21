@@ -53,8 +53,17 @@ namespace LevelDesign
                 int newX = EditorGUILayout.IntField("Wall X Coordinate", snake.X);
                 int newY = EditorGUILayout.IntField("Wall Y Coordinate", snake.Y);
 
-                if (newX != snake.X && IsInWidthBound(newX)) snake.SetXCoordinate(newX);
-                if (newY != snake.Y && IsInHeightBound(newY)) snake.SetYCoordinate(newY);
+                if (newX != snake.X && IsInWidthBound(newX))
+                {
+                    snake.SetXCoordinate(newX);
+                    snake.SetTransform();
+                }
+
+                if (newY != snake.Y && IsInHeightBound(newY))
+                {
+                    snake.SetYCoordinate(newY);
+                    snake.SetTransform();
+                }
 
                 if (GUILayout.Button("Rotate Snake"))
                 {

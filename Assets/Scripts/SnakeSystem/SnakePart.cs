@@ -4,6 +4,9 @@ namespace SnakeSystem
     {
         public SnakePart NextPart { get; private set; }
         public SnakePart PreviousPart { get; private set; }
+        
+        private int _previousX;
+        private int _previousY;
 
         public void SetNextPart(SnakePart nextPart)
         {
@@ -17,6 +20,9 @@ namespace SnakeSystem
 
         public void MoveTo(int newX, int newY)
         {
+            _previousX = X;
+            _previousY = Y;
+            
             Grid.ClearTileOfParentCell(this);
             SetXCoordinate(newX);
             SetYCoordinate(newY);
@@ -26,9 +32,9 @@ namespace SnakeSystem
         public virtual void Follow(SnakePart leader)
         {
             if (leader == null) return;
-
-            MoveTo(leader.X, leader.Y);
-
+            
+            MoveTo(leader._previousX, leader._previousY);
+            
             if (NextPart != null)
             {
                 NextPart.Follow(this);

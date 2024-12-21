@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visuals: {fileID: 4266421609945757428}
+  head: {fileID: 7948284315939132727}
+  tail: {fileID: 2483474417751920872}
 --- !u!1 &4266421609945757428
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,6 +92,7 @@ GameObject:
   - component: {fileID: 693899114005586526}
   - component: {fileID: 5340364471592522500}
   - component: {fileID: 4939964630493633909}
+  - component: {fileID: 7948284315939132727}
   m_Layer: 0
   m_Name: SnakeHead
   m_TagString: Untagged
@@ -163,6 +166,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7948284315939132727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6298482590964224708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202e65184d0a0ab45b2ac3cbf7b33fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6975896307342338673
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,6 +189,7 @@ GameObject:
   - component: {fileID: 6317576724203936833}
   - component: {fileID: 2108584647206082987}
   - component: {fileID: 2901585515542122618}
+  - component: {fileID: 2483474417751920872}
   m_Layer: 0
   m_Name: SnakeTail
   m_TagString: Untagged
@@ -247,3 +263,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2483474417751920872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6975896307342338673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 202e65184d0a0ab45b2ac3cbf7b33fd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

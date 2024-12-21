@@ -27,7 +27,7 @@ namespace SnakeSystem
 
         public override void ConfigureSelf(int x, int y)
         {
-            base.ConfigureSelf(x, y);
+            head.ConfigureSelf(x, y);
             _layer = 0;
         }
 
@@ -38,8 +38,13 @@ namespace SnakeSystem
             _bodyParts.Add(tail);
             head.SetNextPart(tail);
             tail.SetPreviousPart(head);
+
+            foreach (var part in _bodyParts)
+            {
+                part.InjectController(Grid);
+            }
         }
-        
+
         public void Move()
         {
             Vector2Int moveDirection = Utilities.GetDirectionVector(_direction);
@@ -53,7 +58,7 @@ namespace SnakeSystem
                 head.NextPart.Follow(head);
             }
         }
-    
+
         public void SetDirection(Direction direction)
         {
             _direction = direction;

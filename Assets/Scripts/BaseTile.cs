@@ -41,13 +41,11 @@ public class BaseTile : MonoBehaviour
     public void SetXCoordinate(int x)
     {
         _x = x;
-        SetTransform();
     }
 
     public void SetYCoordinate(int y)
     {
         _y = y;
-        SetTransform();
     }
 
     public virtual SaveData CreateTileData()
