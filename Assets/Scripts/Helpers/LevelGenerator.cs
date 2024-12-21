@@ -28,9 +28,9 @@ namespace Helpers
             }
 
             _snake = (Snake)SpawnTileByPath(Utilities.SnakePath);
-            ConfigureTile(_snake, data.snakeData);
             _snake.InjectController(grid);
             _snake.SetDirection(data.snakeData.initialDirection);
+            ConfigureTile(_snake, data.snakeData);
         }
     
         public void GenerateGrid(Size size)
