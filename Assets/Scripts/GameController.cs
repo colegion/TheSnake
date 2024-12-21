@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    [SerializeField] private CameraAdjuster cameraAdjuster; 
     [SerializeField] private LevelGenerator levelGenerator;
 
     private LevelSaver _levelSaver;
@@ -30,6 +31,7 @@ public class GameController : MonoBehaviour
             {
                 _target = levelData.target;
                 _grid = new Grid(levelData.width, levelData.height);
+                cameraAdjuster.AdjustCameraToGrid(levelData.width, levelData.height);
                 levelGenerator.GenerateLevelFromJson(_grid, levelData);
                 EventBus.Instance.Trigger(new OnLevelStartEvent(index, _target));
             }
