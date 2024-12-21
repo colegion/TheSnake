@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using SnakeSystem;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ namespace Helpers
         [SerializeField] private Transform gridParent;
 
         private Grid _grid;
+        private Snake _snake;
 
         public void GenerateLevelFromJson(Grid grid, LevelData data)
         {
@@ -25,10 +27,10 @@ namespace Helpers
                 ((Wall)wall).SetWallType(wallData.type);
             }
 
-            var snake = SpawnTileByPath(Utilities.SnakePath);
-            ConfigureTile(snake, data.snakeData);
-            snake.InjectController(grid);
-            ((Snake)snake).SetDirection(data.snakeData.initialDirection);
+            _snake = (Snake)SpawnTileByPath(Utilities.SnakePath);
+            ConfigureTile(_snake, data.snakeData);
+            _snake.InjectController(grid);
+            _snake.SetDirection(data.snakeData.initialDirection);
         }
     
         public void GenerateGrid(Size size)
@@ -76,6 +78,11 @@ namespace Helpers
             var x = data?.x ?? 0;
             var y = data?.y ?? 0;
             tile.ConfigureSelf(x, y);
+        }
+
+        public Snake GetSnake()
+        {
+            return _snake;
         }
     }
 }

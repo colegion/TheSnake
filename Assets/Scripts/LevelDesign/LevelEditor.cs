@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using Helpers;
+using SnakeSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Size = Helpers.Size;

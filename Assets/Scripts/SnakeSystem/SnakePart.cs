@@ -14,10 +14,25 @@ namespace SnakeSystem
         {
             PreviousPart = previousPart;
         }
-        
+
+        public void MoveTo(int newX, int newY)
+        {
+            Grid.ClearTileOfParentCell(this);
+            SetXCoordinate(newX);
+            SetYCoordinate(newY);
+            Grid.PlaceTileToParentCell(this);
+        }
+
         public virtual void Follow(SnakePart leader)
         {
-            // Default implementation (can be empty if not needed for SnakeHead)
+            if (leader == null) return;
+
+            MoveTo(leader.X, leader.Y);
+
+            if (NextPart != null)
+            {
+                NextPart.Follow(this);
+            }
         }
     }
 }

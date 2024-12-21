@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Helpers;
+using SnakeSystem;
 using UnityEngine;
 
 public class GameController : MonoBehaviour
@@ -12,7 +13,10 @@ public class GameController : MonoBehaviour
     private LevelSaver _levelSaver;
     private Grid _grid;
     private int _target = 0;
+    private Snake _snake;
     
+    private Coroutine _movementRoutine;
+    private bool _isGameFinished;
     private void Start()
     {
         _levelSaver = new LevelSaver();
@@ -33,7 +37,9 @@ public class GameController : MonoBehaviour
                 _grid = new Grid(levelData.width, levelData.height);
                 cameraAdjuster.AdjustCameraToGrid(levelData.width, levelData.height);
                 levelGenerator.GenerateLevelFromJson(_grid, levelData);
+                _snake = levelGenerator.GetSnake();
                 EventBus.Instance.Trigger(new OnLevelStartEvent(index, _target));
+                InitiateTheGame();
             }
             else
             {
@@ -43,6 +49,21 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.LogError("Level file not found.");
+        }
+    }
+
+    private void InitiateTheGame()
+    {
+        _movementRoutine = StartCoroutine(Move());
+    }
+
+    private IEnumerator Move()
+    {
+        _snake.Initialize();
+        while (!_isGameFinished)
+        {
+            _snake.Move();
+            yield return new WaitForSeconds(1f);
         }
     }
 

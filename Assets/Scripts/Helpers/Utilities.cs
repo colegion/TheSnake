@@ -19,6 +19,14 @@ namespace Helpers
         public const int BlockLayer = 0;
         public const int FreeLayer = 1;
 
+        private static Dictionary<Direction, Vector2Int> _directionVectors = new Dictionary<Direction, Vector2Int>()
+        {
+            { Direction.Up , Vector2Int.up },
+            { Direction.Right , Vector2Int.right },
+            { Direction.Down , Vector2Int.down },
+            { Direction.Left , Vector2Int.left },
+        };
+
         private void Start()
         {
             _wallConfigs = wallConfigs;
@@ -32,6 +40,11 @@ namespace Helpers
         public static Mesh GetWallMeshByType(WallType type)
         {
             return _wallConfigs.Find(c => c.type == type).wallMesh;
+        }
+
+        public static Vector2Int GetDirectionVector(Direction direction)
+        {
+            return _directionVectors[direction];
         }
         
         public static bool IsEdgeCell(int yCoord) => yCoord == 0;

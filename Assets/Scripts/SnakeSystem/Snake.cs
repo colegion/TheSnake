@@ -1,46 +1,100 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
 
-public class Snake : BaseTile
+namespace SnakeSystem
 {
-    [SerializeField] private GameObject visuals;
+    public class Snake : BaseTile
+    {
+        [SerializeField] private GameObject visuals;
+        [SerializeField] private SnakeBodyPart head;
+        [SerializeField] private SnakeBodyPart tail;
 
-    private Direction _direction = Direction.Up;
-    
-    public override void ConfigureSelf(int x, int y)
-    {
-        base.ConfigureSelf(x, y);
-        _layer = 0;
-    }
-    
-    public void SetDirection(Direction direction)
-    {
-        _direction = direction;
-        SetRotation();
-    }
-    
-    public void UpdateDirection()
-    {
-        _direction = (Direction)(((int)_direction + 1) % Enum.GetValues(typeof(Direction)).Length);
-        SetRotation();
-    }
+        private Direction _direction = Direction.Up;
+        
+        private List<SnakeBodyPart> _bodyParts;
 
-    private void SetRotation()
-    {
-        visuals.transform.localRotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
-    }
-    
-    public override SaveData CreateTileData()
-    {
-        var data = new SnakeData
+        private void OnEnable()
         {
-            x = _x,
-            y = _y,
-            initialDirection = _direction
-        };
-        return data;
+            AddListeners();
+        }
+
+        private void OnDisable()
+        {
+            RemoveListeners();
+        }
+
+        public override void ConfigureSelf(int x, int y)
+        {
+            base.ConfigureSelf(x, y);
+            _layer = 0;
+        }
+
+        public void Initialize()
+        {
+            _bodyParts = new List<SnakeBodyPart>();
+            _bodyParts.Add(head);
+            _bodyParts.Add(tail);
+            head.SetNextPart(tail);
+            tail.SetPreviousPart(head);
+        }
+        
+        public void Move()
+        {
+            Vector2Int moveDirection = Utilities.GetDirectionVector(_direction);
+            int newX = head.X + moveDirection.x;
+            int newY = head.Y + moveDirection.y;
+            
+            head.MoveTo(newX, newY);
+            
+            if (head.NextPart != null)
+            {
+                head.NextPart.Follow(head);
+            }
+        }
+    
+        public void SetDirection(Direction direction)
+        {
+            _direction = direction;
+            SetRotation();
+        }
+    
+        public void UpdateDirection()
+        {
+            _direction = (Direction)(((int)_direction + 1) % Enum.GetValues(typeof(Direction)).Length);
+            SetRotation();
+        }
+
+        private void SetRotation()
+        {
+            visuals.transform.localRotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
+        }
+
+        private void HandleOnDirectionChanged(OnDirectionUpdated e)
+        {
+            SetDirection(e.direction);
+        }
+
+        public override SaveData CreateTileData()
+        {
+            var data = new SnakeData
+            {
+                x = _x,
+                y = _y,
+                initialDirection = _direction
+            };
+            return data;
+        }
+        
+        private void AddListeners()
+        {
+            EventBus.Instance.Register<OnDirectionUpdated>(HandleOnDirectionChanged);
+        }
+
+        private void RemoveListeners()
+        {
+            EventBus.Instance.Unregister<OnDirectionUpdated>(HandleOnDirectionChanged);
+        }
     }
 }
