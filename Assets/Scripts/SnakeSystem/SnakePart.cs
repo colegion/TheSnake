@@ -1,3 +1,5 @@
+using UnityEngine.Serialization;
+
 namespace SnakeSystem
 {
     public class SnakePart : BaseTile
@@ -5,8 +7,8 @@ namespace SnakeSystem
         public SnakePart NextPart { get; private set; }
         public SnakePart PreviousPart { get; private set; }
         
-        private int _previousX;
-        private int _previousY;
+        [FormerlySerializedAs("_previousX")] public int previousX;
+        [FormerlySerializedAs("_previousY")] public int previousY;
 
         public void SetNextPart(SnakePart nextPart)
         {
@@ -20,20 +22,21 @@ namespace SnakeSystem
 
         public void MoveTo(int newX, int newY)
         {
-            _previousX = X;
-            _previousY = Y;
+            previousX = X;
+            previousY = Y;
             
             Grid.ClearTileOfParentCell(this);
             SetXCoordinate(newX);
             SetYCoordinate(newY);
             Grid.PlaceTileToParentCell(this);
+            SetLocalPosition(-newX, -newY);
         }
 
         public virtual void Follow(SnakePart leader)
         {
             if (leader == null) return;
             
-            MoveTo(leader._previousX, leader._previousY);
+            MoveTo(-leader.previousX, -leader.previousY);
             
             if (NextPart != null)
             {

@@ -27,11 +27,14 @@ namespace SnakeSystem
 
         public override void ConfigureSelf(int x, int y)
         {
-            base.ConfigureSelf(x, y);
+            //base.ConfigureSelf(x, y);
             head.ConfigureSelf(x, y);
+            head.SetLocalPosition(-x, -y);
             var vector = Utilities.GetDirectionVector(_direction);
             tail.ConfigureSelf(x + vector.x, y + vector.y);
+            tail.SetLocalPosition(-x + vector.x, -y + vector.y);
             _layer = 0;
+            visuals.transform.localPosition += Vector3.up *.6f;
         }
 
         public void Initialize()

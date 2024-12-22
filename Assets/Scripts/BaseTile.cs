@@ -38,6 +38,11 @@ public class BaseTile : MonoBehaviour
         transform.localPosition = new Vector3(_x, 1, _y);
     }
 
+    public void SetLocalPosition(int x, int y)
+    {
+        transform.localPosition = new Vector3(x, 0, y);
+    }
+
     public void SetXCoordinate(int x)
     {
         _x = x;

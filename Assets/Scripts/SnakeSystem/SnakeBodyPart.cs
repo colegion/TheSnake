@@ -6,8 +6,9 @@ namespace SnakeSystem
         {
             if (leader == null) return;
             
-            SetXCoordinate(leader.X);
-            SetYCoordinate(leader.Y);
+            SetXCoordinate(leader.previousX);
+            SetYCoordinate(leader.previousY);
+            MoveTo(leader.previousX, leader.previousY);
             
             if (NextPart != null)
             {

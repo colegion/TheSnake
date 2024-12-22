@@ -33,6 +33,7 @@ namespace LevelDesign
             
             var wall = levelGenerator.SpawnTileByPath(Utilities.WallPath);
             wall.ConfigureSelf(0, 0);
+            
             ((Wall)wall).SetWallType(WallType.Concrete);
             walls.Add((Wall)wall);
         }
