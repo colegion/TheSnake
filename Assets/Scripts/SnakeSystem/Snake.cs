@@ -57,6 +57,15 @@ namespace SnakeSystem
             int newX = head.X + moveDirection.x;
             int newY = head.Y + moveDirection.y;
             
+            int gridWidth = Grid.Width;
+            int gridHeight = Grid.Height;
+
+            if (newX < 0) newX = gridWidth - 1;
+            else if (newX >= gridWidth) newX = 0;
+
+            if (newY < 0) newY = gridHeight - 1;
+            else if (newY >= gridHeight) newY = 0;
+            
             head.MoveTo(newX, newY);
             
             if (head.NextPart != null)
@@ -64,7 +73,7 @@ namespace SnakeSystem
                 head.NextPart.Follow(head);
             }
         }
-
+        
         public void SetDirection(Direction direction)
         {
             _direction = direction;

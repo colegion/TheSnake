@@ -6,9 +6,13 @@ using UnityEngine;
 public class Grid
 {
    private GridCell[,] _world;
+   public int Width { get; private set; }
+   public int Height { get; private set; }
 
    public Grid(int width, int height)
    {
+      Width = width;
+      Height = height;
       _world = new GridCell[width, height];
    }
 
