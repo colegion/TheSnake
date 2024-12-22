@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Helpers;
 using UnityEngine.Serialization;
 
 namespace SnakeSystem
@@ -32,7 +34,7 @@ namespace SnakeSystem
             SetLocalPosition(-newX, -newY);
         }
 
-        public virtual void Follow(SnakePart leader)
+        public virtual void Follow(SnakePart leader, Queue<TurnPoint> turnPoints)
         {
             if (leader == null) return;
             
@@ -40,7 +42,7 @@ namespace SnakeSystem
             
             if (NextPart != null)
             {
-                NextPart.Follow(this);
+                NextPart.Follow(this, turnPoints);
             }
         }
     }

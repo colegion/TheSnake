@@ -11,6 +11,7 @@ namespace SnakeSystem
         [SerializeField] private SnakeBodyPart head;
         [SerializeField] private SnakeBodyPart tail;
 
+        private Queue<TurnPoint> _turnPoints = new Queue<TurnPoint>();
         private Direction _direction = Direction.Up;
         
         private List<SnakeBodyPart> _bodyParts;
@@ -66,11 +67,16 @@ namespace SnakeSystem
             if (newY < 0) newY = gridHeight - 1;
             else if (newY >= gridHeight) newY = 0;
             
+            if (_turnPoints.Count == 0 || _turnPoints.Peek().Direction != _direction)
+            {
+                _turnPoints.Enqueue(new TurnPoint(new Vector2Int(head.X, head.Y), _direction));
+            }
+            
             head.MoveTo(newX, newY);
             
             if (head.NextPart != null)
             {
-                head.NextPart.Follow(head);
+                head.NextPart.Follow(head, _turnPoints);
             }
         }
         
@@ -93,7 +99,8 @@ namespace SnakeSystem
 
         private void HandleOnDirectionChanged(OnDirectionUpdated e)
         {
-            SetDirection(e.direction);
+            _direction = e.direction;
+            head.transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
         }
 
         public override SaveData CreateTileData()
