@@ -79,6 +79,11 @@ namespace SnakeSystem
                 head.NextPart.Follow(head, _turnPoints);
             }
         }
+
+        public void Grow()
+        {
+            
+        }
         
         public void SetDirection(Direction direction)
         {
