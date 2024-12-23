@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FoodSystem;
 using Helpers;
 using UnityEngine;
 
@@ -48,7 +49,7 @@ namespace SnakeSystem
 
             foreach (var part in _bodyParts)
             {
-                part.InjectController(Grid);
+                part.InjectGrid(Grid);
             }
         }
 
@@ -73,6 +74,10 @@ namespace SnakeSystem
             }
             
             head.MoveTo(newX, newY);
+            if (Grid.IsCellHasFood(newX, newY, out Food food))
+            {
+                food.OnConsume(this);
+            }
             
             if (head.NextPart != null)
             {
@@ -82,7 +87,7 @@ namespace SnakeSystem
 
         public void Grow()
         {
-            
+            Debug.Log("growwwwww");
         }
         
         public void SetDirection(Direction direction)

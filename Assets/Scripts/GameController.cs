@@ -1,22 +1,37 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FoodSystem;
 using Helpers;
 using SnakeSystem;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class GameController : MonoBehaviour
 {
-    [SerializeField] private CameraAdjuster cameraAdjuster; 
+    [SerializeField] private CameraAdjuster cameraAdjuster;
+    [SerializeField] private FoodController foodController;
     [SerializeField] private LevelGenerator levelGenerator;
 
     private LevelSaver _levelSaver;
     private Grid _grid;
     private int _target = 0;
+    private int _currentGatheredAppleCount = 0;
     private Snake _snake;
     
     private Coroutine _movementRoutine;
     private bool _isGameFinished;
+
+    private void OnEnable()
+    {
+        AddListeners();
+    }
+
+    private void OnDisable()
+    {
+        RemoveListeners();
+    }
+
     private void Start()
     {
         _levelSaver = new LevelSaver();
@@ -38,7 +53,7 @@ public class GameController : MonoBehaviour
                 cameraAdjuster.AdjustCameraToGrid(levelData.width, levelData.height);
                 levelGenerator.GenerateLevelFromJson(_grid, levelData);
                 _snake = levelGenerator.GetSnake();
-                EventBus.Instance.Trigger(new OnLevelStartEvent(index, _target));
+                EventBus.Instance.Trigger(new OnLevelStart(index, _target));
                 InitiateTheGame();
             }
             else
@@ -63,6 +78,7 @@ public class GameController : MonoBehaviour
         while (!_isGameFinished)
         {
             _snake.Move();
+            foodController.PlaceFoods(_grid);
             yield return new WaitForSeconds(1f);
         }
     }
@@ -79,5 +95,27 @@ public class GameController : MonoBehaviour
         }
 
         return index;
+    }
+
+    private void HandleOnAppleGathered(OnAppleGathered e)
+    {
+        _currentGatheredAppleCount++;
+
+        if (_currentGatheredAppleCount == _target)
+        {
+            _isGameFinished = true;
+            StopCoroutine(_movementRoutine);
+            //success
+        }
+    }
+
+    private void AddListeners()
+    {
+        EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
+    }
+
+    private void RemoveListeners()
+    {
+        EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
     }
 }

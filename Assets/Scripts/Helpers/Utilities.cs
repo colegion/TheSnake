@@ -18,6 +18,7 @@ namespace Helpers
 
         public const int BlockLayer = 0;
         public const int FreeLayer = 1;
+        public const int FoodLayer = 2;
 
         private static Dictionary<Direction, Vector2Int> _directionVectors = new Dictionary<Direction, Vector2Int>()
         {
@@ -113,12 +114,12 @@ namespace Helpers
         Left
     }
 
-    public class OnLevelStartEvent
+    public class OnLevelStart
     {
         public int levelIndex;
         public int target;
 
-        public OnLevelStartEvent(int index, int count)
+        public OnLevelStart(int index, int count)
         {
             levelIndex = index;
             target = count;
@@ -133,5 +134,10 @@ namespace Helpers
         {
             this.direction = direction;
         }
+    }
+
+    public class OnAppleGathered
+    {
+        
     }
 }

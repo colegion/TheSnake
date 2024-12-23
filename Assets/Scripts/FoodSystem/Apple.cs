@@ -1,3 +1,4 @@
+using Helpers;
 using SnakeSystem;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace FoodSystem
         {
             snake.Grow();
             Grid.ClearTileOfParentCell(this);
-            
+            Deactivate();
+            EventBus.Instance.Trigger(new OnAppleGathered());
         }
     }
 }

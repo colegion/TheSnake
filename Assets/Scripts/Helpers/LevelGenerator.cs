@@ -23,12 +23,13 @@ namespace Helpers
                 var wall = SpawnTileByPath(Utilities.WallPath);
                 ConfigureTile(wall, wallData);
                 wall.SetLayer((int)wallData.type);
-                wall.InjectController(grid);
+                wall.InjectGrid(grid);
                 ((Wall)wall).SetWallType(wallData.type);
             }
 
             _snake = (Snake)SpawnTileByPath(Utilities.SnakePath);
-            _snake.InjectController(grid);
+            _snake.SetLayer(Utilities.BlockLayer);
+            _snake.InjectGrid(grid);
             _snake.SetDirection(data.snakeData.initialDirection);
             ConfigureTile(_snake, data.snakeData);
         }
@@ -59,6 +60,7 @@ namespace Helpers
                     var cellPrefab = isWhite ? lightPrefab : darkPrefab;
 
                     var cell = Instantiate(cellPrefab, new Vector3(x, 0, y), Quaternion.identity, gridParent.transform);
+                    cell.InjectGrid(_grid);
                     cell.ConfigureSelf(x, y);
                     _grid.SetCell(cell);
                 }

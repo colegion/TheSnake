@@ -15,7 +15,7 @@ public class BaseTile : MonoBehaviour
 
     protected Grid Grid;
 
-    public void InjectController(Grid grid)
+    public void InjectGrid(Grid grid)
     {
         Grid = grid;
         Grid.PlaceTileToParentCell(this);

@@ -10,6 +10,7 @@ namespace Helpers
         [SerializeField] private TextMeshProUGUI targetField;
 
         private int _levelTarget;
+        private int _currentCount = 0;
         private void OnEnable()
         {
             AddListeners();
@@ -20,21 +21,30 @@ namespace Helpers
             RemoveListeners();
         }
 
-        private void ConfigureInitialValues(OnLevelStartEvent e)
+        private void ConfigureInitialValues(OnLevelStart e)
         {
             levelIndexField.text = $"Level: {e.levelIndex}";
             _levelTarget = e.target;
-            targetField.text = $"0 / {_levelTarget}";
+            _currentCount = 0;
+            targetField.text = $"{_currentCount} / {_levelTarget}";
+        }
+
+        private void HandleOnAppleGathered(OnAppleGathered e)
+        {
+            _currentCount++;
+            targetField.text = $"{_currentCount} / {_levelTarget}";
         }
 
         private void AddListeners()
         {
-            EventBus.Instance.Register<OnLevelStartEvent>(ConfigureInitialValues);
+            EventBus.Instance.Register<OnLevelStart>(ConfigureInitialValues);
+            EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
         }
 
         private void RemoveListeners()
         {
-            EventBus.Instance.Unregister<OnLevelStartEvent>(ConfigureInitialValues);
+            EventBus.Instance.Unregister<OnLevelStart>(ConfigureInitialValues);
+            EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
         }
     }
 }
