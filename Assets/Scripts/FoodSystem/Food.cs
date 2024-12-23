@@ -7,13 +7,13 @@ namespace FoodSystem
     {
         public bool IsActive { get; private set; }
 
-        public void Activate()
+        public virtual void Activate()
         {
             IsActive = true;
             gameObject.SetActive(true);
         }
 
-        public void Deactivate()
+        protected void Deactivate()
         {
             IsActive = false;
             gameObject.SetActive(false);

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +11,8 @@ namespace Helpers
         [SerializeField] private Direction buttonDirection;
         [SerializeField] private Button button;
         
+        private Coroutine _effectCoroutine;
+        private Quaternion _initialRotation;
         private void OnEnable()
         {
             AddListeners();
@@ -24,14 +28,36 @@ namespace Helpers
             EventBus.Instance.Trigger(new OnDirectionUpdated(buttonDirection));
         }
 
+        private void ReverseSelf(OnDirectionMirrored e)
+        {
+            var duration = e.duration;
+            _initialRotation = transform.localRotation;
+            buttonDirection =  (Direction)(((int)buttonDirection + 2) % Enum.GetValues(typeof(Direction)).Length);
+            transform.localRotation *= Quaternion.Euler(0, 0, 180f);
+            StartCoroutine(WaitUntilEffectOver(duration));
+        }
+
+        private IEnumerator WaitUntilEffectOver(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            ResetSelf();
+        }
+
+        private void ResetSelf()
+        {
+            transform.localRotation = _initialRotation;
+        }
+
         private void AddListeners()
         {
             button.onClick.AddListener(OnDirectionSelected);
+            EventBus.Instance.Register<OnDirectionMirrored>(ReverseSelf);
         }
 
         private void RemoveListeners()
         {
             button.onClick.RemoveListener(OnDirectionSelected);
+            EventBus.Instance.Unregister<OnDirectionMirrored>(ReverseSelf);
         }
     }
 }

@@ -48,6 +48,7 @@ namespace Helpers
             return _directionVectors[direction];
         }
         
+        
         public static bool IsEdgeCell(int yCoord) => yCoord == 0;
     }
 
@@ -139,5 +140,15 @@ namespace Helpers
     public class OnAppleGathered
     {
         
+    }
+
+    public class OnDirectionMirrored
+    {
+        public float duration;
+
+        public OnDirectionMirrored(float duration)
+        {
+            this.duration = duration;
+        }
     }
 }

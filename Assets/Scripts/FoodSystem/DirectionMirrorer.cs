@@ -1,18 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
+using Helpers;
+using SnakeSystem;
 using UnityEngine;
 
-public class DirectionMirrorer : MonoBehaviour
+namespace FoodSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public class DirectionMirrorer : Food
     {
-        
-    }
+        [SerializeField] private float activeDuration;
+        [SerializeField] private float effectDuration;
+        public override void Activate()
+        {
+            base.Activate();
+            StartCoroutine(DisableAfterInterval(activeDuration));
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private IEnumerator DisableAfterInterval(float interval)
+        {
+            yield return new WaitForSeconds(interval);
+            Deactivate();
+        }
+
+        public override void OnConsume(Snake snake)
+        {
+            EventBus.Instance.Trigger(new OnDirectionMirrored(effectDuration));
+        }
     }
 }
