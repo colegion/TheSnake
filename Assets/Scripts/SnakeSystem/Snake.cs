@@ -98,8 +98,8 @@ namespace SnakeSystem
             temp.InjectGrid(Grid);
             var vector = Utilities.GetDirectionVector(_direction);
             temp.ConfigureSelf(head.X + vector.x, head.Y + vector.y);
-            temp.SetLocalPosition(-head.X + vector.x, -head.Y + vector.y);
-            oldNextPart.SetLocalPosition(-temp.X + vector.x, -temp.Y + vector.y);
+            temp.SetLocalPosition(-head.X - vector.x, -head.Y - vector.y);
+            oldNextPart.SetLocalPosition(temp.X - vector.x, temp.Y - vector.y);
         }
         
         public void SetDirection(Direction direction)
