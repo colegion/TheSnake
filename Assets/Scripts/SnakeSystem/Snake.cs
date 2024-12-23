@@ -64,7 +64,6 @@ namespace SnakeSystem
 
             if (newX < 0) newX = gridWidth - 1;
             else if (newX >= gridWidth) newX = 0;
-
             if (newY < 0) newY = gridHeight - 1;
             else if (newY >= gridHeight) newY = 0;
             

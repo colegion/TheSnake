@@ -24,6 +24,7 @@ namespace FoodSystem
         public override void OnConsume(Snake snake)
         {
             EventBus.Instance.Trigger(new OnDirectionMirrored(effectDuration));
+            Deactivate();
         }
     }
 }

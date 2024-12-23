@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using Helpers;
+using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace SnakeSystem
@@ -31,7 +33,9 @@ namespace SnakeSystem
             SetXCoordinate(newX);
             SetYCoordinate(newY);
             Grid.PlaceTileToParentCell(this);
-            SetLocalPosition(-newX, -newY);
+            var target = new Vector3(newX, transform.position.y, newY);
+            transform.DOMove(target, 0.25f).SetEase(Ease.Linear);
+            //SetLocalPosition(-newX, -newY);
         }
 
         public virtual void Follow(SnakePart leader, Queue<TurnPoint> turnPoints)
