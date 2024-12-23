@@ -48,6 +48,8 @@ MonoBehaviour:
   visuals: {fileID: 4266421609945757428}
   head: {fileID: 7948284315939132727}
   tail: {fileID: 2483474417751920872}
+  bodyPart: {fileID: 1092146760319350899, guid: 730b18c93c582964c9b3b43e307721ec,
+    type: 3}
 --- !u!1 &4266421609945757428
 GameObject:
   m_ObjectHideFlags: 0

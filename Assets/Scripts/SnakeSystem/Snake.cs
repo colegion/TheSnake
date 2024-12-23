@@ -11,6 +11,7 @@ namespace SnakeSystem
         [SerializeField] private GameObject visuals;
         [SerializeField] private SnakeBodyPart head;
         [SerializeField] private SnakeBodyPart tail;
+        [SerializeField] private SnakeBodyPart bodyPart;
 
         private Queue<TurnPoint> _turnPoints = new Queue<TurnPoint>();
         private Direction _direction = Direction.Up;
@@ -29,7 +30,6 @@ namespace SnakeSystem
 
         public override void ConfigureSelf(int x, int y)
         {
-            //base.ConfigureSelf(x, y);
             head.ConfigureSelf(x, y);
             head.SetLocalPosition(-x, -y);
             var vector = Utilities.GetDirectionVector(_direction);
@@ -86,7 +86,20 @@ namespace SnakeSystem
 
         public void Grow()
         {
-            Debug.Log("growwwwww");
+            var temp = Instantiate(bodyPart, visuals.transform);
+            _bodyParts.Insert(1, temp);
+            var oldNextPart = head.NextPart;
+            head.SetNextPart(temp);
+            temp.SetPreviousPart(head);
+            temp.SetNextPart(oldNextPart);
+            oldNextPart.SetPreviousPart(temp);
+            
+            temp.SetLayer(Utilities.BlockLayer);
+            temp.InjectGrid(Grid);
+            var vector = Utilities.GetDirectionVector(_direction);
+            temp.ConfigureSelf(head.X + vector.x, head.Y + vector.y);
+            temp.SetLocalPosition(-head.X + vector.x, -head.Y + vector.y);
+            oldNextPart.SetLocalPosition(-temp.X + vector.x, -temp.Y + vector.y);
         }
         
         public void SetDirection(Direction direction)
