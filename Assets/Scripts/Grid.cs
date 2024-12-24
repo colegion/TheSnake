@@ -95,4 +95,9 @@ public class Grid
          cell.SetTileNull(tile.Layer);
       }
    }
+
+   public int GetAvailableCellCount()
+   {
+      return _availableCells.Count;
+   }
 }

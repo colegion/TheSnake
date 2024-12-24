@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using SnakeSystem;
 using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Helpers
 {
@@ -11,6 +13,16 @@ namespace Helpers
 
         private Grid _grid;
         private Snake _snake;
+        
+        private void OnEnable()
+        {
+            AddListeners();
+        }
+
+        private void OnDisable()
+        {
+            RemoveListeners();
+        }
 
         public void GenerateLevelFromJson(Grid grid, LevelData data)
         {
@@ -20,11 +32,7 @@ namespace Helpers
 
             foreach (var wallData in data.wallData)
             {
-                var wall = SpawnTileByPath(Utilities.WallPath);
-                ConfigureTile(wall, wallData);
-                wall.SetLayer((int)wallData.type);
-                wall.InjectGrid(grid);
-                ((Wall)wall).SetWallType(wallData.type);
+                ConfigureNewWall(wallData);
             }
 
             _snake = (Snake)SpawnTileByPath(Utilities.SnakePath);
@@ -32,6 +40,16 @@ namespace Helpers
             _snake.InjectGrid(grid);
             _snake.SetDirection(data.snakeData.initialDirection);
             ConfigureTile(_snake, data.snakeData);
+        }
+
+        private Wall ConfigureNewWall(WallData wallData)
+        {
+            var wall = WallPool.Instance.GetAvailableWall();
+            ConfigureTile(wall, wallData);
+            wall.SetLayer((int)wallData.type);
+            wall.InjectGrid(_grid);
+            wall.SetWallType(wallData.type);
+            return wall;
         }
     
         public void GenerateGrid(Size size)
@@ -85,6 +103,36 @@ namespace Helpers
         public Snake GetSnake()
         {
             return _snake;
+        }
+
+        private void WallifyGrid(OnWallifyConsumed e)
+        {
+                var min = Mathf.Min(3, _grid.GetAvailableCellCount() / 10);
+                var max = Mathf.Max(3, _grid.GetAvailableCellCount() / 10);
+                var randomCount = Random.Range(min, max);
+                for (int i = 0; i < randomCount; i++)
+                {
+                    var randomCell = _grid.GetAvailableRandomCell();
+                    var wallData = new WallData()
+                    {
+                        type = WallType.Concrete,
+                        x = randomCell.X,
+                        y = randomCell.Y
+                    };
+                
+                    var wall = ConfigureNewWall(wallData);
+                    wall.DisableSelfAfterInterval(e.duration);
+                }
+        }
+
+        private void AddListeners()
+        {
+            EventBus.Instance.Register<OnWallifyConsumed>(WallifyGrid);
+        }
+
+        private void RemoveListeners()
+        {
+            EventBus.Instance.Unregister<OnWallifyConsumed>(WallifyGrid);
         }
     }
 }

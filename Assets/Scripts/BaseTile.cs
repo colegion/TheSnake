@@ -53,6 +53,12 @@ public class BaseTile : MonoBehaviour
         _y = y;
     }
 
+    public void ResetSelf()
+    {
+        Grid.ClearTileOfParentCell(this);
+        gameObject.SetActive(false);
+    }
+
     public virtual SaveData CreateTileData()
     {
         var data = new SaveData();

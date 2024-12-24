@@ -5,7 +5,7 @@ namespace FoodSystem
 {
     public abstract class Food : BaseTile, IConsumable
     {
-        public bool IsActive { get; private set; }
+        public bool IsActive { get; set; }
 
         public virtual void Activate()
         {
@@ -13,10 +13,11 @@ namespace FoodSystem
             gameObject.SetActive(true);
         }
 
-        protected void Deactivate()
+        public virtual void Deactivate()
         {
             IsActive = false;
             gameObject.SetActive(false);
+            Grid.ClearTileOfParentCell(this);
         }
 
         public abstract void OnConsume(Snake snake);

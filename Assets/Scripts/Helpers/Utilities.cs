@@ -151,4 +151,14 @@ namespace Helpers
             this.duration = duration;
         }
     }
+
+    public class OnWallifyConsumed
+    {
+        public float duration;
+
+        public OnWallifyConsumed(float duration)
+        {
+            this.duration = duration;
+        }
+    }
 }

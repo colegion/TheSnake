@@ -7,7 +7,7 @@ public class Wall : BaseTile
 {
     [SerializeField] private MeshFilter wallMeshFilter;
     private WallType _wallType;
-
+    
     public void SetWallType(WallType type)
     {
         _wallType = type;
@@ -22,6 +22,17 @@ public class Wall : BaseTile
     public WallType GetWallType()
     {
         return _wallType;
+    }
+
+    public void DisableSelfAfterInterval(float interval)
+    {
+        StartCoroutine(TrackInterval(interval));
+    }
+
+    private IEnumerator TrackInterval(float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        ResetSelf();
     }
     
     public override SaveData CreateTileData()
