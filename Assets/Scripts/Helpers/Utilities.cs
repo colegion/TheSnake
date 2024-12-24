@@ -161,4 +161,13 @@ namespace Helpers
             this.duration = duration;
         }
     }
+
+    public class OnGameOver
+    {
+        public bool isSuccess;
+        public OnGameOver(bool isSuccess)
+        {
+            this.isSuccess = isSuccess;
+        }
+    }
 }

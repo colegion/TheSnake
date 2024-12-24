@@ -100,15 +100,14 @@ public class GameController : MonoBehaviour
     private void HandleOnAppleGathered(OnAppleGathered e)
     {
         _currentGatheredAppleCount++;
-
         if (_currentGatheredAppleCount == _target)
         {
             _isGameFinished = true;
             StopCoroutine(_movementRoutine);
-            //success
+            EventBus.Instance.Trigger(new OnGameOver(true));
         }
     }
-
+    
     private void AddListeners()
     {
         EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
