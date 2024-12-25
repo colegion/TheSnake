@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FoodSystem;
 using Helpers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Grid
 {
@@ -98,6 +100,11 @@ public class Grid
         {
             cell.SetTileNull(tile.Layer);
         }
+    }
+
+    public Transform GetCellTargetByCoordinate(int x, int y)
+    {
+        return _world[x, y].GetTarget();
     }
 
     public int GetAvailableCellCount()

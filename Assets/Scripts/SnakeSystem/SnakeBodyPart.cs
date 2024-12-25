@@ -6,30 +6,27 @@ namespace SnakeSystem
 {
     public class SnakeBodyPart : SnakePart
     {
-        public override void Follow(SnakePart leader, Queue<TurnPoint> turnPoints)
+        public override void Follow(SnakePart leader, Queue<TurnPoint> turnPoints, Direction direction, int bodyIndex)
         {
             if (leader == null) return;
             
             if (turnPoints.Count > 0 && new Vector2Int(X, Y) == turnPoints.Peek().Position)
             {
                 var turnPoint = turnPoints.Peek();
-                var direction = turnPoint.Direction;
-                transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(direction));
+                var trurnDirection = turnPoint.Direction;
+                transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(trurnDirection));
             }
             
-            MoveTo(leader.previousX, leader.previousY);
-            
+            MoveTo(leader.previousX, leader.previousY, direction, bodyIndex);
             if (NextPart != null)
             {
-                NextPart.Follow(this, turnPoints);
+                NextPart.Follow(this, turnPoints, direction, bodyIndex+1);
             }
-            else
+            else if (turnPoints.Count > 0 && new Vector2Int(previousX, previousY) == turnPoints.Peek().Position)
             {
-                if (turnPoints.Count > 0 && new Vector2Int(previousX, previousY) == turnPoints.Peek().Position)
-                {
-                    turnPoints.Dequeue();
-                }
+                turnPoints.Dequeue();
             }
         }
+
     }
 }

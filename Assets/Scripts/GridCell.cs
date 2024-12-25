@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GridCell : MonoBehaviour
 {
+    [SerializeField] private Transform target;
     private int _x;
     private int _y;
 
@@ -78,5 +79,10 @@ public class GridCell : MonoBehaviour
     public BaseTile GetTile(int layer)
     {
         return _tiles.GetValueOrDefault(layer);
+    }
+
+    public Transform GetTarget()
+    {
+        return target;
     }
 }

@@ -15,7 +15,6 @@ namespace SnakeSystem
 
         private Queue<TurnPoint> _turnPoints = new Queue<TurnPoint>();
         private Direction _direction = Direction.Up;
-        
         private List<SnakeBodyPart> _bodyParts;
 
         private void OnEnable()
@@ -57,33 +56,35 @@ namespace SnakeSystem
             Vector2Int moveDirection = Utilities.GetDirectionVector(_direction);
             int newX = head.X + moveDirection.x;
             int newY = head.Y + moveDirection.y;
-            
+
             int gridWidth = Grid.Width;
             int gridHeight = Grid.Height;
             newX = UpdateXIfOutOfEdge(newX, gridWidth);
             newY = UpdateYIfOutOfEdge(newY, gridHeight);
-            
+
             if (Grid.HasCrashed(newX, newY))
             {
                 EventBus.Instance.Trigger(new OnGameOver(false));
+                return;
             }
-            
-            head.MoveTo(newX, newY);
-            
+
+            head.MoveTo(newX, newY, _direction, 0);
+
             if (Grid.IsCellHasFood(newX, newY, out Food food))
             {
                 food.OnConsume(this);
             }
-            
+
             if (head.NextPart != null)
             {
-                head.NextPart.Follow(head, _turnPoints);
+                head.NextPart.Follow(head, _turnPoints, _direction, _bodyParts.FindIndex(x=>  x == head.NextPart));
             }
         }
-
+        
         public void Grow()
         {
             var newPart = Instantiate(bodyPart, visuals.transform);
+            _bodyParts.Insert(_bodyParts.Count-2, newPart);
             var oldPreviousPart = tail.PreviousPart;
             oldPreviousPart.SetNextPart(newPart);
             newPart.SetPreviousPart(oldPreviousPart);
@@ -96,6 +97,7 @@ namespace SnakeSystem
             var tailLocalPosition = tail.transform.localPosition;
             newPart.transform.localPosition = tailLocalPosition;
             var directionVector = Utilities.GetDirectionVector(_direction);
+            //todo: update coordinate for tail
             tail.ConfigureSelf(newPart.X - directionVector.x, newPart.Y - directionVector.y);
             tail.transform.localPosition = newPart.transform.localPosition;
         }
@@ -120,7 +122,6 @@ namespace SnakeSystem
         private void HandleOnDirectionChanged(OnDirectionUpdated e)
         {
             if (_direction == e.direction || Utilities.IsOppositeDirection(_direction, e.direction)) return;
-            
             _direction = e.direction;
             head.transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
             var turnPoint = new TurnPoint(new Vector2Int(head.X, head.Y), _direction);
