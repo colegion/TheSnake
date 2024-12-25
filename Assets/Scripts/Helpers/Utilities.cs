@@ -6,8 +6,10 @@ namespace Helpers
 {
     public class Utilities : MonoBehaviour
     {
+        [SerializeField] private float tickInterval;
         [SerializeField] private List<WallConfig> wallConfigs;
         private static List<WallConfig> _wallConfigs;
+        public static float Tick;
         
         public const string LightTilePath = "Prefabs/GrassLight";
         public const string DarkTilePath = "Prefabs/GrassDark";
@@ -31,6 +33,7 @@ namespace Helpers
         private void Start()
         {
             _wallConfigs = wallConfigs;
+            Tick = tickInterval;
         }
 
         public static Vector3 GetRotationByDirection(Direction direction)

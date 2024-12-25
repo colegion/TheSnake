@@ -79,7 +79,7 @@ public class GameController : MonoBehaviour
         {
             _snake.Move();
             foodController.PlaceFoods(_grid);
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(Utilities.Tick);
         }
     }
 

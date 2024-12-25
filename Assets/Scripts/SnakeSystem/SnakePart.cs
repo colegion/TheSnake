@@ -34,7 +34,7 @@ namespace SnakeSystem
             SetYCoordinate(newY);
             Grid.PlaceTileToParentCell(this);
             var target = new Vector3(newX, transform.position.y, newY);
-            transform.DOMove(target, 0.25f).SetEase(Ease.Linear);
+            transform.DOMove(target, Utilities.Tick / 4f).SetEase(Ease.Linear);
         }
 
         public virtual void Follow(SnakePart leader, Queue<TurnPoint> turnPoints)
