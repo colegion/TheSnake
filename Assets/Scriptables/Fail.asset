@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Fail
   m_EditorClassIdentifier: 
   audioType: 2
-  audioClip: {fileID: 0}
+  audioClip: {fileID: 8300000, guid: 7e705c3710708094ca546abf5f794d4b, type: 3}

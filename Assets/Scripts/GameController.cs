@@ -7,6 +7,7 @@ using Helpers.UI;
 using SnakeSystem;
 using UnityEngine;
 using UnityEngine.XR;
+using AudioType = Helpers.AudioType;
 
 public class GameController : MonoBehaviour
 {

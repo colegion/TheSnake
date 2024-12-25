@@ -4,6 +4,7 @@ using FoodSystem;
 using Helpers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using AudioType = Helpers.AudioType;
 
 namespace SnakeSystem
 {
@@ -70,9 +71,11 @@ namespace SnakeSystem
             int gridHeight = Grid.Height;
             newX = UpdateXIfOutOfEdge(newX, gridWidth);
             newY = UpdateYIfOutOfEdge(newY, gridHeight);
+            AudioManager.Instance.PlayClip(AudioType.Move);
 
             if (Grid.HasCrashed(newX, newY))
             {
+                AudioManager.Instance.PlayClip(AudioType.Fail);
                 EventBus.Instance.Trigger(new OnGameOver(false));
                 return;
             }
@@ -81,6 +84,7 @@ namespace SnakeSystem
 
             if (Grid.IsCellHasFood(newX, newY, out Food food))
             {
+                AudioManager.Instance.PlayClip(AudioType.IncreaseLevel);
                 food.OnConsume(this);
             }
 

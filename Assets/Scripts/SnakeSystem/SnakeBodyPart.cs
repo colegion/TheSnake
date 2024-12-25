@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Helpers;
 using UnityEngine;
+using AudioType = Helpers.AudioType;
 
 namespace SnakeSystem
 {
@@ -14,6 +15,7 @@ namespace SnakeSystem
             {
                 var turnPoint = turnPoints.Peek();
                 var trurnDirection = turnPoint.Direction;
+                AudioManager.Instance.PlayClip(AudioType.Turn);
                 transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(trurnDirection));
             }
             
