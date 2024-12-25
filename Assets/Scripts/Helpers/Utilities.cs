@@ -47,8 +47,15 @@ namespace Helpers
         {
             return _directionVectors[direction];
         }
-        
-        
+
+        public static bool IsOppositeDirection(Direction oldDirection, Direction selectedDirection)
+        {
+            return (oldDirection == Direction.Up && selectedDirection == Direction.Down) ||
+                   (oldDirection == Direction.Right && selectedDirection == Direction.Left) ||
+                   (oldDirection == Direction.Down && selectedDirection == Direction.Up) ||
+                   (oldDirection == Direction.Left && selectedDirection == Direction.Right);
+        }
+
         public static bool IsEdgeCell(int yCoord) => yCoord == 0;
     }
 

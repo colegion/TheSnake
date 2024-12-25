@@ -8,18 +8,18 @@ namespace SnakeSystem
 {
     public class SnakePart : BaseTile
     {
-        public SnakePart NextPart { get; private set; }
-        public SnakePart PreviousPart { get; private set; }
+        public SnakeBodyPart NextPart { get; private set; }
+        public SnakeBodyPart PreviousPart { get; private set; }
         
         [FormerlySerializedAs("_previousX")] public int previousX;
         [FormerlySerializedAs("_previousY")] public int previousY;
 
-        public void SetNextPart(SnakePart nextPart)
+        public void SetNextPart(SnakeBodyPart nextPart)
         {
             NextPart = nextPart;
         }
 
-        public void SetPreviousPart(SnakePart previousPart)
+        public void SetPreviousPart(SnakeBodyPart previousPart)
         {
             PreviousPart = previousPart;
         }
@@ -42,11 +42,25 @@ namespace SnakeSystem
         {
             if (leader == null) return;
             
-            MoveTo(-leader.previousX, -leader.previousY);
-            
+            if (turnPoints.Count > 0 && new Vector2Int(X, Y) == turnPoints.Peek().Position)
+            {
+                var turnPoint = turnPoints.Peek();
+                var direction = turnPoint.Direction;
+                transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(direction));
+            }
+
+            MoveTo(leader.previousX, leader.previousY);
+
             if (NextPart != null)
             {
                 NextPart.Follow(this, turnPoints);
+            }
+            else
+            {
+                if (turnPoints.Count > 0 && new Vector2Int(X, Y) == turnPoints.Peek().Position)
+                {
+                    turnPoints.Dequeue(); // Remove the turn point after the last part processes it
+                }
             }
         }
     }

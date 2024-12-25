@@ -22,6 +22,5 @@ namespace Helpers.UI
             Debug.LogError($"Failed to load prefab at path: {path}");
          }
       }
-
    }
 }
