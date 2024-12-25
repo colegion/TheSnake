@@ -33,10 +33,9 @@ namespace SnakeSystem
             head.ConfigureSelf(x, y);
             head.SetLocalPosition(-x, -y);
             var vector = Utilities.GetDirectionVector(_direction);
-            tail.ConfigureSelf(x + vector.x, y + vector.y);
+            tail.ConfigureSelf(x - vector.x, y - vector.y);
             tail.SetLocalPosition(-x + vector.x, -y + vector.y);
             _layer = 0;
-            visuals.transform.localPosition += Vector3.up *.6f;
         }
 
         public void Initialize()
@@ -64,7 +63,13 @@ namespace SnakeSystem
             newX = UpdateXIfOutOfEdge(newX, gridWidth);
             newY = UpdateYIfOutOfEdge(newY, gridHeight);
             
+            if (Grid.HasCrashed(newX, newY))
+            {
+                EventBus.Instance.Trigger(new OnGameOver(false));
+            }
+            
             head.MoveTo(newX, newY);
+            
             if (Grid.IsCellHasFood(newX, newY, out Food food))
             {
                 food.OnConsume(this);

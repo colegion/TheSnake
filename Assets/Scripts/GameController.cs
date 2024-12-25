@@ -115,20 +115,32 @@ public class GameController : MonoBehaviour
         _currentGatheredAppleCount++;
         if (_currentGatheredAppleCount == _target)
         {
-            _isGameFinished = true;
-            StopCoroutine(_movementRoutine);
             IncrementLevelIndex();
             EventBus.Instance.Trigger(new OnGameOver(true));
         }
+    }
+
+    private void HandleOnGameOver(OnGameOver e)
+    {
+        StopGame();
+    }
+
+    private void StopGame()
+    {
+        _isGameFinished = true;
+        if(_movementRoutine != null)
+            StopCoroutine(_movementRoutine);
     }
     
     private void AddListeners()
     {
         EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
+        EventBus.Instance.Register<OnGameOver>(HandleOnGameOver);
     }
 
     private void RemoveListeners()
     {
         EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
+        EventBus.Instance.Unregister<OnGameOver>(HandleOnGameOver);
     }
 }
