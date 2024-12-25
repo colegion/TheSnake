@@ -61,11 +61,8 @@ namespace SnakeSystem
             
             int gridWidth = Grid.Width;
             int gridHeight = Grid.Height;
-
-            if (newX < 0) newX = gridWidth - 1;
-            else if (newX >= gridWidth) newX = 0;
-            if (newY < 0) newY = gridHeight - 1;
-            else if (newY >= gridHeight) newY = 0;
+            newX = UpdateXIfOutOfEdge(newX, gridWidth);
+            newY = UpdateYIfOutOfEdge(newY, gridHeight);
             
             if (_turnPoints.Count == 0 || _turnPoints.Peek().Direction != _direction)
             {
@@ -134,6 +131,20 @@ namespace SnakeSystem
                 initialDirection = _direction
             };
             return data;
+        }
+
+        private int UpdateXIfOutOfEdge(int newX, int gridWidth)
+        {
+            if (newX < 0) newX = gridWidth - 1;
+            else if (newX >= gridWidth) newX = 0;
+            return newX;
+        }
+        
+        private int UpdateYIfOutOfEdge(int newY, int gridHeight)
+        {
+            if (newY < 0) newY = gridHeight - 1;
+            else if (newY >= gridHeight) newY = 0;
+            return newY;
         }
         
         private void AddListeners()

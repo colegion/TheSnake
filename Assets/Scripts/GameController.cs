@@ -97,6 +97,19 @@ public class GameController : MonoBehaviour
         return index;
     }
 
+    private void IncrementLevelIndex()
+    {
+        var currentIndex = PlayerPrefs.GetInt(Utilities.LevelIndexKey, 1);
+        var maxIndex = _levelSaver.GetMaxExistingLevelIndex();
+        currentIndex++;
+        if (currentIndex > maxIndex)
+        {
+            currentIndex = 1;
+        }
+        
+        PlayerPrefs.SetInt(Utilities.LevelIndexKey, currentIndex);
+    }
+
     private void HandleOnAppleGathered(OnAppleGathered e)
     {
         _currentGatheredAppleCount++;
@@ -104,6 +117,7 @@ public class GameController : MonoBehaviour
         {
             _isGameFinished = true;
             StopCoroutine(_movementRoutine);
+            IncrementLevelIndex();
             EventBus.Instance.Trigger(new OnGameOver(true));
         }
     }
