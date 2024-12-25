@@ -100,23 +100,29 @@ namespace SnakeSystem
         public void Grow()
         {
             var newPart = Instantiate(bodyPart, visuals.transform);
-            _bodyParts.Insert(_bodyParts.Count-2, newPart);
+            _bodyParts.Insert(_bodyParts.Count - 2, newPart);
             var oldPreviousPart = tail.PreviousPart;
             oldPreviousPart.SetNextPart(newPart);
             newPart.SetPreviousPart(oldPreviousPart);
             newPart.SetNextPart(tail);
             tail.SetPreviousPart(newPart);
-            
+
+
             newPart.SetLayer(Utilities.BlockLayer);
             newPart.InjectGrid(Grid);
             newPart.ConfigureSelf(tail.X, tail.Y);
-            var tailLocalPosition = tail.transform.localPosition;
-            newPart.transform.localPosition = tailLocalPosition;
-            var directionVector = Utilities.GetDirectionVector(_direction);
-            //todo: update coordinate for tail
-            tail.ConfigureSelf(newPart.X - directionVector.x, newPart.Y - directionVector.y);
+            newPart.transform.localPosition = tail.transform.localPosition;
+
+            var opposite = (Direction)((int)(_direction + 2) % Enum.GetValues(typeof(Direction)).Length);
+            var directionVector = Utilities.GetDirectionVector(opposite);
+            
+            var newTailX = UpdateXIfOutOfEdge(newPart.X + directionVector.x, Grid.Width);
+            var newTailY = UpdateYIfOutOfEdge(newPart.Y + directionVector.y, Grid.Height);
+
+            tail.ConfigureSelf(newTailX, newTailY);
             tail.transform.localPosition = newPart.transform.localPosition;
         }
+
         
         public void SetDirection(Direction direction)
         {

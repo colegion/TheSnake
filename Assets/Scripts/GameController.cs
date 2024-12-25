@@ -43,7 +43,7 @@ public class GameController : MonoBehaviour
     private void LoadLevel()
     {
         var index = TryGetLevelIndex();
-        TextAsset levelFile = Resources.Load<TextAsset>($"Levels/level1");
+        TextAsset levelFile = Resources.Load<TextAsset>($"Levels/level{index}");
         if (levelFile != null)
         {
             LevelData levelData = JsonUtility.FromJson<LevelData>(levelFile.text);
