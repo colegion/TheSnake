@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Helpers
+namespace Helpers.UI
 {
     public class CameraAdjuster : MonoBehaviour
     {

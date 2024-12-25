@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using FoodSystem;
 using Helpers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace SnakeSystem
 {
@@ -17,6 +18,8 @@ namespace SnakeSystem
         private Direction _direction = Direction.Up;
         private List<SnakeBodyPart> _bodyParts;
 
+        private bool EditingLevel => SceneManager.GetActiveScene().name == "LevelEditor";
+
         private void OnEnable()
         {
             AddListeners();
@@ -26,14 +29,20 @@ namespace SnakeSystem
         {
             RemoveListeners();
         }
+        
+        public override void InjectGrid(Grid grid)
+        {
+            Grid = grid;
+        }
 
         public override void ConfigureSelf(int x, int y)
         {
             head.ConfigureSelf(x, y);
             head.SetLocalPosition(-x, -y);
             var vector = Utilities.GetDirectionVector(_direction);
-            tail.ConfigureSelf(x - vector.x, y - vector.y);
-            tail.SetLocalPosition(-x + vector.x, -y + vector.y);
+            tail.ConfigureSelf(UpdateXIfOutOfEdge(x - vector.x, Grid.Width), UpdateYIfOutOfEdge(y - vector.y, Grid.Height));
+            tail.SetLocalPosition(-x - vector.x, -y - vector.y);
+            if(!EditingLevel) tail.gameObject.SetActive(true);
             _layer = 0;
         }
 

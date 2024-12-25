@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FoodSystem;
 using Helpers;
+using Helpers.UI;
 using SnakeSystem;
 using UnityEngine;
 using UnityEngine.XR;
@@ -41,7 +42,7 @@ public class GameController : MonoBehaviour
     private void LoadLevel()
     {
         var index = TryGetLevelIndex();
-        TextAsset levelFile = Resources.Load<TextAsset>($"Levels/level{index}");
+        TextAsset levelFile = Resources.Load<TextAsset>($"Levels/level4");
         if (levelFile != null)
         {
             LevelData levelData = JsonUtility.FromJson<LevelData>(levelFile.text);

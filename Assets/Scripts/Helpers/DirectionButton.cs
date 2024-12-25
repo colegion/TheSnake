@@ -46,6 +46,7 @@ namespace Helpers
         private void ResetSelf()
         {
             transform.localRotation = _initialRotation;
+            buttonDirection =  (Direction)(((int)buttonDirection + 2) % Enum.GetValues(typeof(Direction)).Length);
         }
 
         private void AddListeners()

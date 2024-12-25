@@ -35,7 +35,7 @@ namespace Helpers
             var prefab = Resources.Load<BaseTile>(Utilities.WallPath);
             for (int i = 0; i < poolAmount; i++)
             {
-                var wall = Instantiate(prefab, Vector3.zero, Quaternion.identity, poolParent);
+                var wall = Instantiate(prefab, Vector3.zero - Vector3.down, Quaternion.identity, poolParent);
                 _pooledWalls.Add((Wall)wall);
             }
         }
@@ -51,7 +51,7 @@ namespace Helpers
             }
             
             var prefab = Resources.Load<BaseTile>(Utilities.WallPath);
-            var temp = Instantiate(prefab, Vector3.zero, Quaternion.identity, poolParent);
+            var temp = Instantiate(prefab, Vector3.zero - Vector3.down, Quaternion.identity, poolParent);
             _pooledWalls.Add((Wall)temp);
             return (Wall)temp;
         }

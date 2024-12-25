@@ -50,8 +50,8 @@ namespace LevelDesign
             else
             {
                 var snake = _levelEditor.snake;
-                int newX = EditorGUILayout.IntField("Wall X Coordinate", snake.X);
-                int newY = EditorGUILayout.IntField("Wall Y Coordinate", snake.Y);
+                int newX = EditorGUILayout.IntField("Snake X Coordinate", snake.X);
+                int newY = EditorGUILayout.IntField("Snake Y Coordinate", snake.Y);
 
                 if (newX != snake.X && IsInWidthBound(newX))
                 {
@@ -93,8 +93,18 @@ namespace LevelDesign
                 int newX = EditorGUILayout.IntField("Wall X Coordinate", wall.X);
                 int newY = EditorGUILayout.IntField("Wall Y Coordinate", wall.Y);
 
-                if (newX != wall.X && IsInWidthBound(newX)) wall.SetXCoordinate(newX);
-                if (newY != wall.Y && IsInHeightBound(newY)) wall.SetYCoordinate(newY);
+                if (newX != wall.X && IsInWidthBound(newX))
+                {
+                    wall.SetXCoordinate(newX);
+                    wall.SetTransform();
+                }
+
+                if (newY != wall.Y && IsInHeightBound(newY))
+                {
+                    wall.SetYCoordinate(newY);
+                    wall.SetTransform();
+                }
+                
                 if(newType != wall.GetWallType()) wall.SetWallType(newType);
 
                 if (GUILayout.Button("Delete Wall"))
