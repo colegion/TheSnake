@@ -16,7 +16,6 @@ namespace SnakeSystem
                 var direction = turnPoint.Direction;
                 transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(direction));
             }
-
             
             MoveTo(leader.previousX, leader.previousY);
             
