@@ -40,8 +40,11 @@ namespace SnakeSystem
         {
             head.ConfigureSelf(x, y);
             head.SetLocalPosition(-x, -y);
-            var vector = Utilities.GetDirectionVector(_direction);
-            tail.ConfigureSelf(UpdateXIfOutOfEdge(x - vector.x, Grid.Width), UpdateYIfOutOfEdge(y - vector.y, Grid.Height));
+            var opposite = (Direction)((int)(_direction + 2) % Enum.GetValues(typeof(Direction)).Length);
+            var vector = Utilities.GetDirectionVector(opposite);
+            var tailX = UpdateXIfOutOfEdge(x + vector.x, Grid.Width);
+            var tailY = UpdateYIfOutOfEdge(y + vector.y, Grid.Height);
+            tail.ConfigureSelf(tailX, tailY);
             tail.SetLocalPosition(-x - vector.x, -y - vector.y);
             if(!EditingLevel) tail.gameObject.SetActive(true);
             _layer = 0;

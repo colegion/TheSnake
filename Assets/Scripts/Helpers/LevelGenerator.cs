@@ -38,8 +38,8 @@ namespace Helpers
             _snake = (Snake)SpawnTileByPath(Utilities.SnakePath);
             _snake.SetLayer(Utilities.BlockLayer);
             _snake.InjectGrid(grid);
-            ConfigureTile(_snake, data.snakeData);
             _snake.SetDirection(data.snakeData.initialDirection);
+            ConfigureTile(_snake, data.snakeData);
         }
 
         private Wall ConfigureNewWall(WallData wallData)
@@ -98,6 +98,11 @@ namespace Helpers
             var x = data?.x ?? 0;
             var y = data?.y ?? 0;
             tile.ConfigureSelf(x, y);
+        }
+
+        public Grid GetGrid()
+        {
+            return _grid;
         }
 
         public Snake GetSnake()

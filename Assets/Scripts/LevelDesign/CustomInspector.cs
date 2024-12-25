@@ -21,7 +21,7 @@ namespace LevelDesign
             ConfigureAddWallButton();
             DisplayWallConfigs();
             ConfigureTargetCountField();
-            ConfigureSaveAndPlayButton();
+            ConfigureSaveButton();
         }
         
         private void ConfigureGridSizeFields()
@@ -119,9 +119,9 @@ namespace LevelDesign
             _levelEditor.targetCount = EditorGUILayout.IntField("Target Count: ", _levelEditor.targetCount);
         }
 
-        private void ConfigureSaveAndPlayButton()
+        private void ConfigureSaveButton()
         {
-            if (GUILayout.Button("Save & Play"))
+            if (GUILayout.Button("Save Level"))
             {
                 _levelEditor.SaveLevel();
             }

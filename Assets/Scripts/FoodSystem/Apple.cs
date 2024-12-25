@@ -8,6 +8,7 @@ namespace FoodSystem
     {
         public override void OnConsume(Snake snake)
         {
+            PlayParticleEffect();
             snake.Grow();
             Grid.ClearTileOfParentCell(this);
             Deactivate();

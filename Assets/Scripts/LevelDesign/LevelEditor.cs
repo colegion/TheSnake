@@ -43,6 +43,7 @@ namespace LevelDesign
             if (snake != null) return;
 
             snake = (Snake)levelGenerator.SpawnTileByPath(Utilities.SnakePath);
+            snake.InjectGrid(levelGenerator.GetGrid());
             snake.ConfigureSelf(0, 0);
         }
 

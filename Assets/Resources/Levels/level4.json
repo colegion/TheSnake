@@ -1,11 +1,11 @@
 {
-    "width": 20,
-    "height": 20,
+    "width": 10,
+    "height": 10,
     "wallData": [],
     "snakeData": {
-        "x": 12,
-        "y": 4,
-        "initialDirection": 0
+        "x": 3,
+        "y": 3,
+        "initialDirection": 3
     },
-    "target": 25
+    "target": 5
 }
