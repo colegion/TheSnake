@@ -46,16 +46,16 @@ namespace Helpers
 
         private void AddListeners()
         {
-            EventBus.Instance.Register<OnLevelStart>(ConfigureInitialValues);
-            EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
-            EventBus.Instance.Register<OnGameOver>(HandleOnGameOver);
+            EventBus.Register<OnLevelStart>(ConfigureInitialValues);
+            EventBus.Register<OnAppleGathered>(HandleOnAppleGathered);
+            EventBus.Register<OnGameOver>(HandleOnGameOver);
         }
 
         private void RemoveListeners()
         {
-            EventBus.Instance.Unregister<OnLevelStart>(ConfigureInitialValues);
-            EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
-            EventBus.Instance.Unregister<OnGameOver>(HandleOnGameOver);
+            EventBus.Unregister<OnLevelStart>(ConfigureInitialValues);
+            EventBus.Unregister<OnAppleGathered>(HandleOnAppleGathered);
+            EventBus.Unregister<OnGameOver>(HandleOnGameOver);
         }
     }
 }

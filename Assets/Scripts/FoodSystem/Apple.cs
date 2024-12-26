@@ -11,7 +11,7 @@ namespace FoodSystem
             snake.Grow();
             Grid.ClearTileOfParentCell(this);
             Deactivate();
-            EventBus.Instance.Trigger(new OnAppleGathered());
+            EventBus.Trigger(new OnAppleGathered());
         }
     }
 }

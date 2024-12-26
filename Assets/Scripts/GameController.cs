@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     private int _target = 0;
     private int _currentGatheredAppleCount = 0;
     private Snake _snake;
-    
+
     private Coroutine _movementRoutine;
     private bool _isGameFinished;
 
@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
     private void OnDisable()
     {
         RemoveListeners();
+        EventBus.ClearEvents();
     }
 
     private void Start()
@@ -55,7 +56,7 @@ public class GameController : MonoBehaviour
                 cameraAdjuster.AdjustCameraToGrid(levelData.width, levelData.height);
                 levelGenerator.GenerateLevelFromJson(_grid, levelData);
                 _snake = levelGenerator.GetSnake();
-                EventBus.Instance.Trigger(new OnLevelStart(index, _target));
+                EventBus.Trigger(new OnLevelStart(index, _target));
                 InitiateTheGame();
             }
             else
@@ -108,7 +109,7 @@ public class GameController : MonoBehaviour
         {
             currentIndex = 1;
         }
-        
+
         PlayerPrefs.SetInt(Utilities.LevelIndexKey, currentIndex);
     }
 
@@ -118,7 +119,7 @@ public class GameController : MonoBehaviour
         if (_currentGatheredAppleCount == _target)
         {
             IncrementLevelIndex();
-            EventBus.Instance.Trigger(new OnGameOver(true));
+            EventBus.Trigger(new OnGameOver(true));
         }
     }
 
@@ -130,22 +131,19 @@ public class GameController : MonoBehaviour
     private void StopGame()
     {
         _isGameFinished = true;
-        if(_movementRoutine != null)
+        if (_movementRoutine != null)
             StopCoroutine(_movementRoutine);
     }
-    
+
     private void AddListeners()
     {
-        EventBus.Instance.Register<OnAppleGathered>(HandleOnAppleGathered);
-        EventBus.Instance.Register<OnGameOver>(HandleOnGameOver);
+        EventBus.Register<OnAppleGathered>(HandleOnAppleGathered);
+        EventBus.Register<OnGameOver>(HandleOnGameOver);
     }
 
     private void RemoveListeners()
     {
-        if (EventBus.Instance)
-        {
-            EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
-            EventBus.Instance.Unregister<OnGameOver>(HandleOnGameOver);
-        }
+        EventBus.Unregister<OnAppleGathered>(HandleOnAppleGathered);
+        EventBus.Unregister<OnGameOver>(HandleOnGameOver);
     }
 }

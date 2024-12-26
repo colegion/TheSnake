@@ -131,13 +131,12 @@ namespace Helpers
 
         private void AddListeners()
         {
-            EventBus.Instance.Register<OnWallifyConsumed>(WallifyGrid);
+            EventBus.Register<OnWallifyConsumed>(WallifyGrid);
         }
 
         private void RemoveListeners()
         {
-            if(EventBus.Instance)
-                EventBus.Instance.Unregister<OnWallifyConsumed>(WallifyGrid);
+            EventBus.Unregister<OnWallifyConsumed>(WallifyGrid);
         }
     }
 }

@@ -81,7 +81,7 @@ namespace SnakeSystem
             if (Grid.HasCrashed(newX, newY))
             {
                 AudioManager.Instance.PlayClip(AudioType.Fail);
-                EventBus.Instance.Trigger(new OnGameOver(false));
+                EventBus.Trigger(new OnGameOver(false));
                 return;
             }
 
@@ -187,15 +187,12 @@ namespace SnakeSystem
         
         private void AddListeners()
         {
-            EventBus.Instance.Register<OnDirectionUpdated>(HandleOnDirectionChanged);
+            EventBus.Register<OnDirectionUpdated>(HandleOnDirectionChanged);
         }
 
         private void RemoveListeners()
         {
-            if (EventBus.Instance)
-            {
-                EventBus.Instance.Unregister<OnDirectionUpdated>(HandleOnDirectionChanged);
-            }
+                EventBus.Unregister<OnDirectionUpdated>(HandleOnDirectionChanged);
         }
     }
 }

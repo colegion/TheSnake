@@ -4,29 +4,13 @@ using UnityEngine;
 
 namespace Helpers
 {
-    public class EventBus : MonoBehaviour
+    public static class EventBus
     {
-        private static EventBus _instance;
         private static bool _isInitialized;
 
-        public static EventBus Instance
-        {
-            get
-            {
-                if (_instance == null && !_isInitialized)
-                {
-                    var eventBusGameObject = new GameObject("EventBus");
-                    _instance = eventBusGameObject.AddComponent<EventBus>();
-                    DontDestroyOnLoad(eventBusGameObject);
-                    _isInitialized = true;
-                }
-                return _instance;
-            }
-        }
+        private static readonly Dictionary<Type, List<Delegate>> _eventListeners = new Dictionary<Type, List<Delegate>>();
 
-        private readonly Dictionary<Type, List<Delegate>> _eventListeners = new Dictionary<Type, List<Delegate>>();
-
-        public void Register<T>(Action<T> listener) where T : class
+        public static void Register<T>(Action<T> listener) where T : class
         {
             Type eventType = typeof(T);
             if (!_eventListeners.ContainsKey(eventType))
@@ -36,7 +20,7 @@ namespace Helpers
             _eventListeners[eventType].Add(listener);
         }
 
-        public void Unregister<T>(Action<T> listener) where T : class
+        public static void Unregister<T>(Action<T> listener) where T : class
         {
             Type eventType = typeof(T);
             if (_eventListeners.TryGetValue(eventType, out var eventListeners))
@@ -45,7 +29,7 @@ namespace Helpers
             }
         }
 
-        public void Trigger<T>(T eventData) where T : class
+        public static void Trigger<T>(T eventData) where T : class
         {
             Type eventType = typeof(T);
             if (_eventListeners.TryGetValue(eventType, out var eventListeners))
@@ -57,10 +41,9 @@ namespace Helpers
             }
         }
         
-        private void OnDestroy()
+        public static void ClearEvents()
         {
             _eventListeners.Clear();
-            _instance = null;
             _isInitialized = false;
         }
     }

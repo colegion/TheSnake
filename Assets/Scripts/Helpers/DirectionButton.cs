@@ -25,7 +25,7 @@ namespace Helpers
 
         private void OnDirectionSelected()
         {
-            EventBus.Instance.Trigger(new OnDirectionUpdated(buttonDirection));
+            EventBus.Trigger(new OnDirectionUpdated(buttonDirection));
         }
 
         private void ReverseSelf(OnDirectionMirrored e)
@@ -52,14 +52,13 @@ namespace Helpers
         private void AddListeners()
         {
             button.onClick.AddListener(OnDirectionSelected);
-            EventBus.Instance.Register<OnDirectionMirrored>(ReverseSelf);
+            EventBus.Register<OnDirectionMirrored>(ReverseSelf);
         }
 
         private void RemoveListeners()
         {
             button.onClick.RemoveListener(OnDirectionSelected);
-            if(EventBus.Instance)
-                EventBus.Instance.Unregister<OnDirectionMirrored>(ReverseSelf);
+            EventBus.Unregister<OnDirectionMirrored>(ReverseSelf);
         }
     }
 }
