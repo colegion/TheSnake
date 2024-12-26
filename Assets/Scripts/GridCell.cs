@@ -34,7 +34,7 @@ public class GridCell : MonoBehaviour
     {
         if (Utilities.IsEdgeCell(_y))
         {
-            transform.localRotation = Quaternion.Euler(Vector3.down * 90f);
+            transform.localRotation = Quaternion.Euler(Vector3.down * (90f + (transform.parent.eulerAngles.y - 360f)));
         }
     }
     

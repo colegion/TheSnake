@@ -13,6 +13,7 @@ namespace FoodSystem
         public override void Activate()
         {
             base.Activate();
+            visuals.gameObject.SetActive(true);
             StartCoroutine(DisableAfterInterval(activeDuration));
         }
 
