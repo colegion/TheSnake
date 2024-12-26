@@ -18,7 +18,7 @@ namespace FoodSystem
         public virtual void Deactivate()
         {
             IsActive = false;
-            //gameObject.SetActive(false);
+            gameObject.SetActive(false);
             Grid.ClearTileOfParentCell(this);
         }
 
