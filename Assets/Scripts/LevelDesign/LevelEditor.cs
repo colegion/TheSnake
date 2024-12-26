@@ -62,7 +62,9 @@ namespace LevelDesign
 
             foreach (var wall in walls)
             {
-                wallData.Add((WallData)wall.CreateTileData());
+                var tempData = (WallData)wall.CreateTileData();
+                if (!IsDuplicateCoordinateExists(wallData, tempData))
+                    wallData.Add(tempData);
             }
             
             data.width = width;
@@ -72,6 +74,19 @@ namespace LevelDesign
             data.target = targetCount;
             
             _levelSaver.SaveLevelWithIndex(data, nextIndex+1);
+        }
+
+        private bool IsDuplicateCoordinateExists(List<WallData> wallData, WallData data)
+        {
+            foreach (var tempData in wallData)
+            {
+                if (tempData.x == data.x && tempData.y == data.y)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
         
     }
