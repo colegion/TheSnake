@@ -116,8 +116,8 @@ namespace SnakeSystem
 
 
             newPart.SetLayer(Utilities.BlockLayer);
-            newPart.InjectGrid(Grid);
             newPart.ConfigureSelf(tail.X, tail.Y);
+            newPart.InjectGrid(Grid);
             newPart.transform.localPosition = tail.transform.localPosition;
             //newPart.transform.localRotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
 

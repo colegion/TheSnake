@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4389376993215649724}
   - component: {fileID: 1921612859103179985}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Snake
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5170000814255824899}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 5340364471592522500}
   - component: {fileID: 4939964630493633909}
   - component: {fileID: 7948284315939132727}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnakeHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ GameObject:
   - component: {fileID: 2108584647206082987}
   - component: {fileID: 2901585515542122618}
   - component: {fileID: 2483474417751920872}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SnakeTail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,6 +352,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shadow
       objectReference: {fileID: 0}
+    - target: {fileID: 8051718192036123641, guid: 7eaccc514f63fe5429e69fe9e147f52e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eaccc514f63fe5429e69fe9e147f52e, type: 3}
 --- !u!4 &1334461661640783240 stripped
@@ -380,7 +385,7 @@ PrefabInstance:
     - target: {fileID: 4617128298824842962, guid: 9e10b09c19b79894ca3ed83f482e038e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.762
       objectReference: {fileID: 0}
     - target: {fileID: 4617128298824842962, guid: 9e10b09c19b79894ca3ed83f482e038e,
         type: 3}
@@ -507,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Shadow (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051718192036123641, guid: 7eaccc514f63fe5429e69fe9e147f52e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7eaccc514f63fe5429e69fe9e147f52e, type: 3}

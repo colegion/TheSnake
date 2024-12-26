@@ -2,6 +2,7 @@ using Helpers;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 namespace LevelDesign
 {
     [CustomEditor(typeof(LevelEditor))]
@@ -143,3 +144,4 @@ namespace LevelDesign
         }
     }
 }
+#endif

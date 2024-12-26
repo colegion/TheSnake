@@ -20,6 +20,7 @@ namespace FoodSystem
         private IEnumerator DisableAfterInterval(float interval)
         {
             yield return new WaitForSeconds(interval);
+            IsActive = false;
             Deactivate();
         }
 
