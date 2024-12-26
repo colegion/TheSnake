@@ -20,9 +20,9 @@ namespace FoodSystem
         
         public override void OnConsume(Snake snake)
         {
+            StopCoroutine(ActivateSelfForDuration());
             EventBus.Trigger(new OnWallifyConsumed(effectDuration));
             Deactivate();
-            StopCoroutine(ActivateSelfForDuration());
             StartCoroutine(DeactivateAfterConsumed());
         }
 
