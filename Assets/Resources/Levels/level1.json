@@ -1,11 +1,37 @@
 {
-    "width": 10,
-    "height": 10,
-    "wallData": [],
+    "width": 13,
+    "height": 13,
+    "wallData": [
+        {
+            "x": 5,
+            "y": 5,
+            "type": 0
+        },
+        {
+            "x": 5,
+            "y": 6,
+            "type": 0
+        },
+        {
+            "x": 5,
+            "y": 8,
+            "type": 0
+        },
+        {
+            "x": 4,
+            "y": 8,
+            "type": 0
+        },
+        {
+            "x": 5,
+            "y": 7,
+            "type": 1
+        }
+    ],
     "snakeData": {
-        "x": 5,
-        "y": 2,
-        "initialDirection": 2
+        "x": 8,
+        "y": 3,
+        "initialDirection": 3
     },
-    "target": 5
+    "target": 10
 }
