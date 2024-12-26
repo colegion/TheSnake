@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8141f06a82a2d2e439a375b67ca94840, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tickInterval: 0.8
   wallConfigs:
   - type: 0
     wallMesh: {fileID: 8733429697405204941, guid: 37291db68d65a41f796c5c98690b3cf6,

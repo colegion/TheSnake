@@ -26,6 +26,7 @@ namespace SnakeSystem
 
         public void MoveTo(int newX, int newY, Direction direction, int bodyIndex)
         {
+            Sequence sequence = DOTween.Sequence();
             previousX = X;
             previousY = Y;
             Grid.ClearTileOfParentCell(this);
@@ -34,7 +35,8 @@ namespace SnakeSystem
             Grid.PlaceTileToParentCell(this);
             
             var target = Grid.GetCellTargetByCoordinate(newX, newY);
-            transform.DOMove(target.position, Utilities.Tick / 4f).SetEase(Ease.Linear);
+            sequence.Append(transform.DOJump(target.position, .05f, 1, Utilities.Tick / 4f).SetEase(Ease.Linear));
+            //transform.DOMove(target.position, Utilities.Tick / 4f).SetEase(Ease.Linear);
         }
         
         public virtual void Follow(SnakePart leader, Queue<TurnPoint> turnPoints, Direction direction, int bodyIndex)
