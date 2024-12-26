@@ -6,7 +6,7 @@ namespace FoodSystem
 {
     public abstract class Food : BaseTile, IConsumable
     {
-        [SerializeField] private ParticleSystem eatEffect;
+        [SerializeField] private Color effectColor;
         public bool IsActive { get; set; }
 
         public virtual void Activate()
@@ -22,11 +22,12 @@ namespace FoodSystem
             Grid.ClearTileOfParentCell(this);
         }
 
-        public void PlayParticleEffect()
-        {
-            eatEffect.Play();
-        }
 
+        public Color GetColor()
+        {
+            return effectColor;
+        }
+        
         public abstract void OnConsume(Snake snake);
     }
 }

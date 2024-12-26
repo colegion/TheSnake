@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fee39fe82dfc8e143aabbc0d3424f182, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eatEffect: {fileID: 5352642785574749912}
+  effectColor: {r: 0.9150943, g: 0.3237362, b: 0.3237362, a: 1}
 --- !u!1 &7679603504808060235
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,12 +320,6 @@ PrefabInstance:
 --- !u!4 &4001832741662918523 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4617128298824842962, guid: 9e10b09c19b79894ca3ed83f482e038e,
-    type: 3}
-  m_PrefabInstance: {fileID: 8618209721813514665}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &5352642785574749912 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 4454728902551453553, guid: 9e10b09c19b79894ca3ed83f482e038e,
     type: 3}
   m_PrefabInstance: {fileID: 8618209721813514665}
   m_PrefabAsset: {fileID: 0}

@@ -14,6 +14,7 @@ namespace SnakeSystem
         [SerializeField] private SnakeBodyPart head;
         [SerializeField] private SnakeBodyPart tail;
         [SerializeField] private SnakeBodyPart bodyPart;
+        [SerializeField] private ParticleSystem eatFood;
 
         private Queue<TurnPoint> _turnPoints = new Queue<TurnPoint>();
         private Direction _direction = Direction.Up;
@@ -89,6 +90,9 @@ namespace SnakeSystem
             if (Grid.IsCellHasFood(newX, newY, out Food food))
             {
                 AudioManager.Instance.PlayClip(AudioType.IncreaseLevel);
+                var main = eatFood.main;
+                main.startColor = food.GetColor();
+                eatFood.Play();
                 food.OnConsume(this);
             }
 
@@ -188,7 +192,10 @@ namespace SnakeSystem
 
         private void RemoveListeners()
         {
-            EventBus.Instance.Unregister<OnDirectionUpdated>(HandleOnDirectionChanged);
+            if (EventBus.Instance)
+            {
+                EventBus.Instance.Unregister<OnDirectionUpdated>(HandleOnDirectionChanged);
+            }
         }
     }
 }

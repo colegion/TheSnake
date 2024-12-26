@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c0dc45f138ff604aa4a1bcfa36e530e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectColor: {r: 0.4475792, g: 0.8068712, b: 0.8867924, a: 1}
+  visuals: {fileID: 3813709964465362020}
   activeDuration: 5
   effectDuration: 5
 --- !u!1 &3813709964465362020

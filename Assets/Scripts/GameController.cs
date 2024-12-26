@@ -142,7 +142,10 @@ public class GameController : MonoBehaviour
 
     private void RemoveListeners()
     {
-        EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
-        EventBus.Instance.Unregister<OnGameOver>(HandleOnGameOver);
+        if (EventBus.Instance)
+        {
+            EventBus.Instance.Unregister<OnAppleGathered>(HandleOnAppleGathered);
+            EventBus.Instance.Unregister<OnGameOver>(HandleOnGameOver);
+        }
     }
 }

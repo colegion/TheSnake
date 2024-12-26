@@ -19,7 +19,7 @@ namespace SnakeSystem
                 transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(trurnDirection));
             }
             
-            MoveTo(leader.previousX, leader.previousY, direction, bodyIndex);
+            MoveTo(leader.previousX, leader.previousY);
             if (NextPart != null)
             {
                 NextPart.Follow(this, turnPoints, direction, bodyIndex+1);

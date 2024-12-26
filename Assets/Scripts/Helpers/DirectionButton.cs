@@ -58,7 +58,8 @@ namespace Helpers
         private void RemoveListeners()
         {
             button.onClick.RemoveListener(OnDirectionSelected);
-            EventBus.Instance.Unregister<OnDirectionMirrored>(ReverseSelf);
+            if(EventBus.Instance)
+                EventBus.Instance.Unregister<OnDirectionMirrored>(ReverseSelf);
         }
     }
 }

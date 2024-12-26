@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1716be4b46db29649adcaca4343b92ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  effectColor: {r: 0.8962264, g: 0.46925062, b: 0.70899796, a: 1}
   activeDuration: 20
   effectDuration: 8
 --- !u!1 &2976619469858587934
