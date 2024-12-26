@@ -1626,6 +1626,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5343841137818660863, guid: f2069ccc838692d45844b98f6df3e16c,
+        type: 3}
+      propertyPath: m_text
+      value: 0 / 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5343841137857424888, guid: f2069ccc838692d45844b98f6df3e16c,
         type: 3}
       propertyPath: mainCanvas
@@ -1785,6 +1790,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5343841138681659862, guid: f2069ccc838692d45844b98f6df3e16c,
+        type: 3}
+      propertyPath: m_text
+      value: 'Level:'
       objectReference: {fileID: 0}
     - target: {fileID: 5343841139039725969, guid: f2069ccc838692d45844b98f6df3e16c,
         type: 3}
