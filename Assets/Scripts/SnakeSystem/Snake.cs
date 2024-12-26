@@ -20,6 +20,7 @@ namespace SnakeSystem
         private List<SnakeBodyPart> _bodyParts;
 
         private bool EditingLevel => SceneManager.GetActiveScene().name == "LevelEditor";
+        private bool _tickWaiting;
 
         private void OnEnable()
         {
@@ -95,6 +96,8 @@ namespace SnakeSystem
             {
                 head.NextPart.Follow(head, _turnPoints, _direction, _bodyParts.FindIndex(x=>  x == head.NextPart));
             }
+
+            _tickWaiting = false;
         }
         
         public void Grow()
@@ -112,6 +115,7 @@ namespace SnakeSystem
             newPart.InjectGrid(Grid);
             newPart.ConfigureSelf(tail.X, tail.Y);
             newPart.transform.localPosition = tail.transform.localPosition;
+            //newPart.transform.localRotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
 
             var opposite = (Direction)((int)(_direction + 2) % Enum.GetValues(typeof(Direction)).Length);
             var directionVector = Utilities.GetDirectionVector(opposite);
@@ -143,11 +147,13 @@ namespace SnakeSystem
 
         private void HandleOnDirectionChanged(OnDirectionUpdated e)
         {
+            if (_tickWaiting) return;
             if (_direction == e.direction || Utilities.IsOppositeDirection(_direction, e.direction)) return;
             _direction = e.direction;
             head.transform.rotation = Quaternion.Euler(Utilities.GetRotationByDirection(_direction));
             var turnPoint = new TurnPoint(new Vector2Int(head.X, head.Y), _direction);
             _turnPoints.Enqueue(turnPoint);
+            _tickWaiting = true;
         }
         
         public override SaveData CreateTileData()

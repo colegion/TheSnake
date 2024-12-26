@@ -85,7 +85,6 @@ namespace Helpers
             }
         }
 
-
         public BaseTile SpawnTileByPath(string path)
         {
             var prefab = Resources.Load<BaseTile>(path);
