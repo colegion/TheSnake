@@ -84,7 +84,7 @@ namespace SnakeSystem
                 return;
             }
 
-            head.MoveTo(newX, newY, _direction, 0);
+            head.MoveTo(newX, newY);
 
             if (Grid.IsCellHasFood(newX, newY, out Food food))
             {

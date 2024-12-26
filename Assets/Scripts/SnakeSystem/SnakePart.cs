@@ -24,7 +24,7 @@ namespace SnakeSystem
             PreviousPart = previousPart;
         }
 
-        public void MoveTo(int newX, int newY, Direction direction, int bodyIndex)
+        public void MoveTo(int newX, int newY)
         {
             Sequence sequence = DOTween.Sequence();
             previousX = X;
