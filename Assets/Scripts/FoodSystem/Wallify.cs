@@ -22,6 +22,7 @@ namespace FoodSystem
         {
             EventBus.Trigger(new OnWallifyConsumed(effectDuration));
             Deactivate();
+            StopCoroutine(ActivateSelfForDuration());
             StartCoroutine(DeactivateAfterConsumed());
         }
 
@@ -34,9 +35,8 @@ namespace FoodSystem
         
         private IEnumerator DeactivateAfterConsumed()
         {
-            yield return new WaitForSeconds(effectDuration);
+            yield return new WaitForSeconds(activeDuration);
             IsActive = false;
-            gameObject.SetActive(false);
         }
         
         public override void Deactivate()

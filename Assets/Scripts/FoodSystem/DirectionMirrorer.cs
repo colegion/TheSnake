@@ -28,6 +28,7 @@ namespace FoodSystem
         {
             EventBus.Trigger(new OnDirectionMirrored(effectDuration));
             Deactivate();
+            StopCoroutine(DisableAfterInterval(activeDuration));
             StartCoroutine(DeactivateAfterConsumed());
         }
 
@@ -35,7 +36,6 @@ namespace FoodSystem
         {
             yield return new WaitForSeconds(effectDuration);
             IsActive = false;
-            gameObject.SetActive(false);
         }
         
         public override void Deactivate()

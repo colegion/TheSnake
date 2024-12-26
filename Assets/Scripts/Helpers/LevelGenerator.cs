@@ -125,6 +125,7 @@ namespace Helpers
                     };
                 
                     var wall = ConfigureNewWall(wallData);
+                    wall.gameObject.SetActive(true);
                     wall.DisableSelfAfterInterval(e.duration);
                 }
         }
